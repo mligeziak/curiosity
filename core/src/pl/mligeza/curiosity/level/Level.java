@@ -4,25 +4,25 @@ import java.util.Arrays;
 
 public class Level {
     public int width, height;
-    private Tile[] tiles;
+    private int[] tiles;
 
     public Level(int width, int height) {
         this.width = width;
         this.height = height;
 
-        this.tiles = new Tile[width * height];
+        this.tiles = new int[width * height];
 
-        Arrays.fill(tiles, Tile.defaultTile);
+        Arrays.fill(tiles, Tile.defaultTile.id);
     }
 
     public void update(float dt) {
     }
 
     public Tile getTile(int x, int y) {
-        return tiles[x + y * width];
+        return Tile.tiles[tiles[x + y * width]];
     }
 
-    public Tile[] getTiles() {
+    public int[] getTiles() {
         return tiles;
     }
 }
