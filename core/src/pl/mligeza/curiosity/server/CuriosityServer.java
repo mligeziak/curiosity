@@ -20,8 +20,6 @@ public class CuriosityServer {
         nextPlayerNumber = 1;
 
         Kryo kryo = server.getKryo();
-        kryo.register(Request.class);
-        kryo.register(Response.class);
         kryo.register(Player.class);
 
         server.start();
@@ -36,22 +34,6 @@ public class CuriosityServer {
                     nextPlayerNumber++;
                     players.add(player);
                 }
-                if (object instanceof Request) {
-                    Request request = (Request)object;
-                    System.out.println(request.text);
-
-                    Response response = new Response();
-                    Player player = findPlayerByConnection(connection);
-                    if(player != null) {
-                        response.text = "Thanks PLAYER" + player.number;
-                    }
-                    else {
-                        response.text = "Thanks NULL";
-                    }
-                    connection.sendTCP(response);
-
-                    sendToAll("TO ALL");
-                }
             }
         });
     }
@@ -65,11 +47,9 @@ public class CuriosityServer {
         return null;
     }
 
-    public static void sendToAll(String text) {
-        Response response = new Response();
-        response.text = text;
+    public static void sendToAll(Object object) {
         for(Player player : players) {
-            player.connection.sendTCP(response);
+            player.connection.sendTCP(object);
         }
     }
 }

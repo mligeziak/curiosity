@@ -15,8 +15,6 @@ public class ClientService extends Thread {
         try {
             client = new Client();
             Kryo kryo = client.getKryo();
-            kryo.register(Request.class);
-            kryo.register(Response.class);
             kryo.register(Player.class);
             client.start();
             client.connect(5000, "localhost", 54555, 54777);
@@ -29,17 +27,10 @@ public class ClientService extends Thread {
 
         client.addListener(new Listener() {
             public void received (Connection connection, Object object) {
-                if (object instanceof Response) {
-                    Response response = (Response)object;
-                    System.out.println(response.text);
-                }
             }
         });
     }
 
     public void destroyTile(int x, int y) {
-        Request request = new Request();
-        request.text = "x: " + x + " y: " + y;
-        client.sendTCP(request);
     }
 }

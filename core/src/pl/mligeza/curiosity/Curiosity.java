@@ -18,9 +18,11 @@ public class Curiosity extends ApplicationAdapter {
     private Level level;
     private LevelRenderer levelRenderer;
 
-    public ShapeRenderer shapeRenderer;
+    private ShapeRenderer shapeRenderer;
 
     private ClientService clientService;
+
+    private boolean isTilesArrayLoadedFromServer;
 
     @Override
     public void create() {
@@ -31,16 +33,17 @@ public class Curiosity extends ApplicationAdapter {
         clientService.start();
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(true, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.update();
 
+        isTilesArrayLoadedFromServer = true;
         level = new Level(8, 8);
         levelRenderer = new LevelRenderer(level, camera);
 
         Gdx.input.setInputProcessor(new InputManager(level, camera, clientService));
     }
 
-    public void update(float dt) {
+    private void update(float dt) {
         level.update(dt);
     }
 
@@ -54,7 +57,10 @@ public class Curiosity extends ApplicationAdapter {
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        levelRenderer.render(spriteBatch);
+
+        if(isTilesArrayLoadedFromServer) {
+            levelRenderer.render(spriteBatch);
+        }
     }
 
     @Override
