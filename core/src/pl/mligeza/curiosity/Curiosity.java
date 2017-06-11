@@ -4,13 +4,8 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import pl.mligeza.curiosity.level.Level;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Curiosity extends ApplicationAdapter {
     public static final String TAG = "[Curiosity]";
@@ -28,7 +23,7 @@ public class Curiosity extends ApplicationAdapter {
         final float width = Gdx.graphics.getWidth();
         final float height = Gdx.graphics.getHeight();
         camera.setToOrtho(false, width, height);
-        camera.translate(-width/2, -height/2);
+        camera.translate(-width / 2, -height / 2);
 
         level = new Level(8, 8);
         levelRenderer = new LevelRenderer(level, camera);

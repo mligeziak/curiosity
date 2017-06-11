@@ -5,18 +5,15 @@ import com.badlogic.gdx.graphics.Texture;
 public class Tile {
     public static int TILE_SIZE = 32;
 
-    public static Tile defaultTile = new Tile("default-tile");
-
-    private static int NEXT_ID = 0;
-    public int id = -1;
-    public String tileName;
+    public static Tile defaultTile = new Tile();
 
     private Texture defaultTexture;
+    private static int NEXT_ID = 0;
+    public int id = -1;
 
     public Texture texture;
 
-    public Tile(String tileName) {
-        this.tileName = tileName;
+    public Tile() {
         this.id = ++NEXT_ID;
 
         defaultTexture = new Texture("tiles/default-tile.png");
