@@ -24,29 +24,22 @@ public class Curiosity extends ApplicationAdapter {
         spriteBatch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
 
-        float width = Gdx.graphics.getWidth();
-        float height = Gdx.graphics.getHeight();
-        camera = new OrthographicCamera(width, height);
-        camera.setToOrtho(false);
-
-//        camera.position.set(0, 0, 0);
-
+        camera = new OrthographicCamera();
+        camera.setToOrtho(true, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.update();
 
         level = new Level(8, 8);
         levelRenderer = new LevelRenderer(level, camera);
 
-        Gdx.input.setInputProcessor(new InputManager(camera, level));
+        Gdx.input.setInputProcessor(new InputManager(level, camera));
     }
 
     public void update(float dt) {
         level.update(dt);
-        camera.update();
     }
 
     @Override
     public void resize(int width, int height) {
-
     }
 
     @Override

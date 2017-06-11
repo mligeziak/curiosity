@@ -10,9 +10,9 @@ public class InputManager extends InputAdapter {
     private OrthographicCamera camera;
     private Level level;
 
-    public InputManager(OrthographicCamera camera, Level level) {
-        this.camera = camera;
+    public InputManager(Level level, OrthographicCamera camera) {
         this.level = level;
+        this.camera = camera;
     }
 
     @Override

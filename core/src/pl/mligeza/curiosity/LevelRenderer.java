@@ -1,7 +1,5 @@
 package pl.mligeza.curiosity;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -37,14 +35,5 @@ public class LevelRenderer {
             }
         }
         spriteBatch.end();
-
-        shapeRenderer.setProjectionMatrix(camera.combined);
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-
-        shapeRenderer.setColor(Color.RED);
-        Gdx.app.log(TAG, "CAMERA: " + camera.position);
-        shapeRenderer.rect(camera.position.x, camera.position.y, camera.viewportWidth, camera.viewportHeight);
-
-        shapeRenderer.end();
     }
 }
