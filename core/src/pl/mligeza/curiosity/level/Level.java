@@ -1,21 +1,28 @@
 package pl.mligeza.curiosity.level;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 public class Level {
     public int width, height;
-    public List<Tile> tiles = new ArrayList<>();
+    private Tile[] tiles;
 
     public Level(int width, int height) {
         this.width = width;
         this.height = height;
 
-        for (int i = 0; i < width * height; i++) {
-            tiles.add(Tile.defaultTile);
-        }
+        this.tiles = new Tile[width * height];
+
+        Arrays.fill(tiles, Tile.defaultTile);
     }
 
     public void update(float dt) {
+    }
+
+    public Tile getTile(int x, int y) {
+        return tiles[x + y * width];
+    }
+
+    public Tile[] getTiles() {
+        return tiles;
     }
 }

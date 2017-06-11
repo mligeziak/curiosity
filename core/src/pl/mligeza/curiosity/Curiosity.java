@@ -23,7 +23,7 @@ public class Curiosity extends ApplicationAdapter {
         final float width = Gdx.graphics.getWidth();
         final float height = Gdx.graphics.getHeight();
         camera.setToOrtho(false, width, height);
-        camera.translate(-width / 2, -height / 2);
+//        camera.translate(-width / 2, -height / 2);
 
         level = new Level(8, 8);
         levelRenderer = new LevelRenderer(level, camera);

@@ -24,15 +24,17 @@ public class LevelRenderer {
     }
 
     public void render(SpriteBatch spriteBatch) {
-        Gdx.app.log(TAG, "sprites: " + level.tiles.size());
+        Gdx.app.log(TAG, "sprites: " + level.getTiles().length);
 
         spriteBatch.begin();
         {
             for (int y = 0; y < level.height; y++) {
                 for (int x = 0; x < level.width; x++) {
-                    Tile tile = level.tiles.get(x + y * level.height);
+                    Tile tile = level.getTile(x, y);
 
-                    spriteBatch.draw(tile.texture, x * Tile.TILE_SIZE, y * Tile.TILE_SIZE);
+                    float xTile = x * Tile.TILE_SIZE + camera.position.x;
+                    float yTile = y * Tile.TILE_SIZE + camera.position.y;
+                    spriteBatch.draw(tile.texture, xTile, yTile);
                 }
             }
         }
