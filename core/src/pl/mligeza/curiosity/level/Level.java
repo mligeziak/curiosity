@@ -6,7 +6,7 @@ public class Level {
     public int width, height;
     private int[] tiles;
     public static final int EMPTY_TILE_ID = 0;
-    public static final int DEFAULT_TILE_ID = 0;
+    public static final int DEFAULT_TILE_ID = 1;
 
     public Level(int width, int height) {
         this.width = width;
@@ -24,6 +24,10 @@ public class Level {
 
     public Tile getTile(int x, int y) {
         return Tile.tiles[tiles[x + y * width]];
+    }
+
+    public void setTile(int x, int y, int state) {
+        tiles[x + y * width] = state;
     }
 
     public int[] getTiles() {

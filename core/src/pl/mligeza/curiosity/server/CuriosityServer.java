@@ -21,6 +21,7 @@ public class CuriosityServer {
         server = new Server();
         nextPlayerNumber = 1;
         level = new Level(8, 8);
+        level.setTile(3, 3, Level.EMPTY_TILE_ID);
 
         Kryo kryo = server.getKryo();
         kryo.register(Player.class);

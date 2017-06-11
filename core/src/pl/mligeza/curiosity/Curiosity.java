@@ -22,29 +22,21 @@ public class Curiosity extends ApplicationAdapter {
 
     private ClientService clientService;
 
-    private String isTilesArrayLoadedFromServer;
-
     @Override
     public void create() {
         spriteBatch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
 
-        clientService = new ClientService();
+        level = new Level(8, 8);
+        level.setTile(0, 0, Level.EMPTY_TILE_ID);
+
+        clientService = new ClientService(level);
         clientService.start();
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        camera.setToOrtho(true, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.update();
 
-        isTilesArrayLoadedFromServer = "NO";
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        clientService.sendRequest("GET_LEVEL");
-
-        level = new Level(8, 8);
         levelRenderer = new LevelRenderer(level, camera);
 
         Gdx.input.setInputProcessor(new InputManager(level, camera, clientService));

@@ -4,12 +4,18 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import pl.mligeza.curiosity.LevelRenderer;
 import pl.mligeza.curiosity.level.Level;
 
 import java.io.IOException;
 
 public class ClientService extends Thread {
     private Client client;
+    private Level level;
+
+    public ClientService(Level level) {
+        this.level = level;
+    }
 
     @Override
     public void run() {
@@ -31,12 +37,13 @@ public class ClientService extends Thread {
         Player player = new Player();
         client.sendTCP(player);
 
+        sendRequest("GET_LEVEL");
+
         client.addListener(new Listener() {
             public void received (Connection connection, Object object) {
                 if(object instanceof Level) {
-                    Level level = (Level) object;
-                    System.out.println("Odebrano lvl");
-                    System.out.println(level.width);
+                    level = (Level) object;
+                    System.out.println("Odebrano level");
                 }
             }
         });
