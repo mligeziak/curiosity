@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import pl.mligeza.curiosity.level.Level;
+import pl.mligeza.curiosity.server.ClientService;
 
 public class Curiosity extends ApplicationAdapter {
     public static final String TAG = "[Curiosity]";
@@ -19,10 +20,15 @@ public class Curiosity extends ApplicationAdapter {
 
     public ShapeRenderer shapeRenderer;
 
+    private ClientService clientService;
+
     @Override
     public void create() {
         spriteBatch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
+
+        clientService = new ClientService();
+        clientService.start();
 
         camera = new OrthographicCamera();
         camera.setToOrtho(true, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
