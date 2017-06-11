@@ -5,8 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import pl.mligeza.curiosity.level.Level;
+import pl.mligeza.curiosity.level.tiles.Tile;
 import pl.mligeza.curiosity.server.ClientService;
 
 public class Curiosity extends ApplicationAdapter {
@@ -15,35 +14,30 @@ public class Curiosity extends ApplicationAdapter {
     private OrthographicCamera camera;
     private SpriteBatch spriteBatch;
 
-    private Level level;
     private LevelRenderer levelRenderer;
-
-    private ShapeRenderer shapeRenderer;
 
     private ClientService clientService;
 
     @Override
     public void create() {
         spriteBatch = new SpriteBatch();
-        shapeRenderer = new ShapeRenderer();
 
-        level = new Level(8, 8);
-        level.setTile(0, 0, Level.EMPTY_TILE_ID);
-
-        clientService = new ClientService(level);
+        clientService = new ClientService();
         clientService.start();
 
         camera = new OrthographicCamera();
         camera.setToOrtho(true, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.update();
 
-        levelRenderer = new LevelRenderer(level, camera);
+        Tile.initTiles();
 
-        Gdx.input.setInputProcessor(new InputManager(level, camera, clientService));
+        levelRenderer = new LevelRenderer(clientService.level, camera);
+
+        Gdx.input.setInputProcessor(new InputManager(clientService));
     }
 
     private void update(float dt) {
-        level.update(dt);
+        levelRenderer.setLevel(clientService.level);
     }
 
     @Override

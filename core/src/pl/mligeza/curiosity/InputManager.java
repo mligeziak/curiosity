@@ -3,18 +3,12 @@ package pl.mligeza.curiosity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import pl.mligeza.curiosity.level.Level;
 import pl.mligeza.curiosity.server.ClientService;
 
 public class InputManager extends InputAdapter {
-    private OrthographicCamera camera;
-    private Level level;
     private ClientService clientService;
 
-    public InputManager(Level level, OrthographicCamera camera, ClientService clientService) {
-        this.level = level;
-        this.camera = camera;
+    public InputManager(ClientService clientService) {
         this.clientService = clientService;
     }
 

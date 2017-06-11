@@ -5,6 +5,7 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import pl.mligeza.curiosity.level.Level;
+import pl.mligeza.curiosity.level.tiles.Tile;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,8 +21,7 @@ public class CuriosityServer {
         players = new ArrayList<>();
         server = new Server();
         nextPlayerNumber = 1;
-        level = new Level(8, 8);
-        level.setTile(3, 3, Level.EMPTY_TILE_ID);
+        level = new Level(16, 16);
 
         Kryo kryo = server.getKryo();
         kryo.register(Player.class);
