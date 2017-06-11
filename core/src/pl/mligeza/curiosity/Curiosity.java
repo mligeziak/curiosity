@@ -5,25 +5,33 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import pl.mligeza.curiosity.level.Level;
 
 public class Curiosity extends ApplicationAdapter {
     public static final String TAG = "[Curiosity]";
 
-    private OrthographicCamera camera = new OrthographicCamera();
+    private OrthographicCamera camera;
     private SpriteBatch spriteBatch;
 
     private Level level;
     private LevelRenderer levelRenderer;
 
+    public ShapeRenderer shapeRenderer;
+
     @Override
     public void create() {
         spriteBatch = new SpriteBatch();
+        shapeRenderer = new ShapeRenderer();
 
-        final float width = Gdx.graphics.getWidth();
-        final float height = Gdx.graphics.getHeight();
-        camera.setToOrtho(false, width, height);
-//        camera.translate(-width / 2, -height / 2);
+        float width = Gdx.graphics.getWidth();
+        float height = Gdx.graphics.getHeight();
+        camera = new OrthographicCamera(width, height);
+        camera.setToOrtho(false);
+
+//        camera.position.set(0, 0, 0);
+
+        camera.update();
 
         level = new Level(8, 8);
         levelRenderer = new LevelRenderer(level, camera);
@@ -37,12 +45,16 @@ public class Curiosity extends ApplicationAdapter {
     }
 
     @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
     public void render() {
         update(Gdx.graphics.getDeltaTime());
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
         levelRenderer.render(spriteBatch);
     }
 

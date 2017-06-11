@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Vector3;
 import pl.mligeza.curiosity.level.Level;
 import pl.mligeza.curiosity.level.Tile;
 
@@ -24,29 +23,28 @@ public class LevelRenderer {
     }
 
     public void render(SpriteBatch spriteBatch) {
-        Gdx.app.log(TAG, "sprites: " + level.getTiles().length);
-
+        spriteBatch.setProjectionMatrix(camera.combined);
         spriteBatch.begin();
         {
             for (int y = 0; y < level.height; y++) {
                 for (int x = 0; x < level.width; x++) {
                     Tile tile = level.getTile(x, y);
 
-                    float xTile = x * Tile.TILE_SIZE + camera.position.x;
-                    float yTile = y * Tile.TILE_SIZE + camera.position.y;
+                    float xTile = x * Tile.TILE_SIZE;
+                    float yTile = y * Tile.TILE_SIZE;
                     spriteBatch.draw(tile.texture, xTile, yTile);
                 }
             }
         }
         spriteBatch.end();
 
-        final Vector3 position = camera.position;
-        Gdx.app.log(TAG, "camera pos: " + position);
+        shapeRenderer.setProjectionMatrix(camera.combined);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        {
-            shapeRenderer.setColor(Color.RED);
-            shapeRenderer.rect(position.x, position.y, camera.viewportWidth, camera.viewportHeight);
-        }
+
+        shapeRenderer.setColor(Color.RED);
+        Gdx.app.log(TAG, "CAMERA: " + camera.position);
+        shapeRenderer.rect(camera.position.x, camera.position.y, camera.viewportWidth, camera.viewportHeight);
+
         shapeRenderer.end();
     }
 }
