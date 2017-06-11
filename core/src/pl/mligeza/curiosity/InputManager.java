@@ -6,16 +6,19 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector3;
+import pl.mligeza.curiosity.server.ClientService;
 
 import java.util.List;
 
 public class InputManager extends InputAdapter {
     private OrthographicCamera camera;
     private List<Sprite> sprites;
+    private ClientService clientService;
 
-    public InputManager(OrthographicCamera camera, List<Sprite> sprites) {
+    public InputManager(OrthographicCamera camera, List<Sprite> sprites, ClientService clientService) {
         this.camera = camera;
         this.sprites = sprites;
+        this.clientService = clientService;
     }
 
     @Override
@@ -36,7 +39,11 @@ public class InputManager extends InputAdapter {
 
         float wHalf = newSprite.getWidth() / 2;
         float hHalf = newSprite.getHeight() / 2;
-        newSprite.setPosition(newPosition.x - wHalf, newPosition.y - hHalf);
+        float newX = newPosition.x - wHalf;
+        float newY = newPosition.y - hHalf;
+
+        newSprite.setPosition(newX, newY);
+        clientService.sendCoordinates(newPosition.x, newPosition.y);
 
         sprites.add(newSprite);
 

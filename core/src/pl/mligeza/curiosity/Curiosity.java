@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import pl.mligeza.curiosity.server.ClientService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,8 @@ public class Curiosity extends ApplicationAdapter {
 
     private List<Sprite> sprites = new ArrayList<>();
 
+    private ClientService clientService;
+
     @Override
     public void create() {
         spriteBatch = new SpriteBatch();
@@ -29,11 +32,15 @@ public class Curiosity extends ApplicationAdapter {
 
         defaultImg = new Sprite(img);
 
+        clientService = new ClientService();
+        clientService.start();
+
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        Gdx.input.setInputProcessor(new InputManager(camera, sprites));
+        Gdx.input.setInputProcessor(new InputManager(camera, sprites, clientService));
     }
 
     public void update(float dt) {
+        camera.update();
     }
 
     @Override
