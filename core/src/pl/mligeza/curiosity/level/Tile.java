@@ -8,8 +8,8 @@ public class Tile {
 
     public static Tile[] tiles = new Tile[MAX_TILES];
 
-    public static Tile emptyTile = new Tile(0);
-    public static Tile defaultTile = new Tile(1);
+    public static Tile emptyTile = new Tile(Level.EMPTY_TILE_ID);
+    public static Tile defaultTile = new Tile(Level.DEFAULT_TILE_ID);
 
     private Texture defaultTexture;
     public int id;

@@ -22,7 +22,7 @@ public class Curiosity extends ApplicationAdapter {
 
     private ClientService clientService;
 
-    private boolean isTilesArrayLoadedFromServer;
+    private String isTilesArrayLoadedFromServer;
 
     @Override
     public void create() {
@@ -36,7 +36,14 @@ public class Curiosity extends ApplicationAdapter {
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.update();
 
-        isTilesArrayLoadedFromServer = true;
+        isTilesArrayLoadedFromServer = "NO";
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        clientService.sendRequest("GET_LEVEL");
+
         level = new Level(8, 8);
         levelRenderer = new LevelRenderer(level, camera);
 
@@ -58,9 +65,7 @@ public class Curiosity extends ApplicationAdapter {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        if(isTilesArrayLoadedFromServer) {
-            levelRenderer.render(spriteBatch);
-        }
+        levelRenderer.render(spriteBatch);
     }
 
     @Override

@@ -5,6 +5,8 @@ import java.util.Arrays;
 public class Level {
     public int width, height;
     private int[] tiles;
+    public static final int EMPTY_TILE_ID = 0;
+    public static final int DEFAULT_TILE_ID = 0;
 
     public Level(int width, int height) {
         this.width = width;
@@ -12,8 +14,10 @@ public class Level {
 
         this.tiles = new int[width * height];
 
-        Arrays.fill(tiles, Tile.defaultTile.id);
+        Arrays.fill(tiles, DEFAULT_TILE_ID);
     }
+
+    public Level() { }
 
     public void update(float dt) {
     }
