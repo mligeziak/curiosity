@@ -37,7 +37,7 @@ public class Curiosity extends ApplicationAdapter {
         level = new Level(8, 8);
         levelRenderer = new LevelRenderer(level, camera);
 
-        Gdx.input.setInputProcessor(new InputManager(level, camera));
+        Gdx.input.setInputProcessor(new InputManager(level, camera, clientService));
     }
 
     public void update(float dt) {

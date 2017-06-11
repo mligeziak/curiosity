@@ -5,14 +5,17 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import pl.mligeza.curiosity.level.Level;
+import pl.mligeza.curiosity.server.ClientService;
 
 public class InputManager extends InputAdapter {
     private OrthographicCamera camera;
     private Level level;
+    private ClientService clientService;
 
-    public InputManager(Level level, OrthographicCamera camera) {
+    public InputManager(Level level, OrthographicCamera camera, ClientService clientService) {
         this.level = level;
         this.camera = camera;
+        this.clientService = clientService;
     }
 
     @Override
@@ -26,6 +29,7 @@ public class InputManager extends InputAdapter {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        clientService.destroyTile(screenX/32, screenY/32);
         return true;
     }
 

@@ -37,7 +37,7 @@ public class ClientService extends Thread {
         });
     }
 
-    public void sendCoordinates(float x, float y) {
+    public void destroyTile(int x, int y) {
         Request request = new Request();
         request.text = "x: " + x + " y: " + y;
         client.sendTCP(request);
