@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import pl.mligeza.curiosity.level.Level;
-import pl.mligeza.curiosity.level.Tile;
+import pl.mligeza.curiosity.level.tiles.Tile;
 
 public class LevelRenderer {
     public static final String TAG = "[LevelRenderer]";

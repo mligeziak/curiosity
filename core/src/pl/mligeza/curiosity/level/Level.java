@@ -1,5 +1,7 @@
 package pl.mligeza.curiosity.level;
 
+import pl.mligeza.curiosity.level.tiles.Tile;
+
 import java.util.Arrays;
 
 public class Level {

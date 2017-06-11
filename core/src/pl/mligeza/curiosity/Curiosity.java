@@ -5,8 +5,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import pl.mligeza.curiosity.level.Level;
+import pl.mligeza.curiosity.level.tiles.Tile;
 import pl.mligeza.curiosity.server.ClientService;
 
 public class Curiosity extends ApplicationAdapter {
@@ -18,8 +18,6 @@ public class Curiosity extends ApplicationAdapter {
     private Level level;
     private LevelRenderer levelRenderer;
 
-    private ShapeRenderer shapeRenderer;
-
     private ClientService clientService;
 
     private boolean isTilesArrayLoadedFromServer;
@@ -27,7 +25,6 @@ public class Curiosity extends ApplicationAdapter {
     @Override
     public void create() {
         spriteBatch = new SpriteBatch();
-        shapeRenderer = new ShapeRenderer();
 
         clientService = new ClientService();
         clientService.start();
@@ -36,8 +33,10 @@ public class Curiosity extends ApplicationAdapter {
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.update();
 
+        Tile.initTiles();
+
         isTilesArrayLoadedFromServer = true;
-        level = new Level(8, 8);
+        level = new Level(16, 16);
         levelRenderer = new LevelRenderer(level, camera);
 
         Gdx.input.setInputProcessor(new InputManager(level, camera, clientService));
@@ -58,7 +57,7 @@ public class Curiosity extends ApplicationAdapter {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        if(isTilesArrayLoadedFromServer) {
+        if (isTilesArrayLoadedFromServer) {
             levelRenderer.render(spriteBatch);
         }
     }
