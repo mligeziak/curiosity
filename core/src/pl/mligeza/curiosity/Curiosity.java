@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import pl.mligeza.curiosity.level.Level;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,23 +18,27 @@ public class Curiosity extends ApplicationAdapter {
     private OrthographicCamera camera = new OrthographicCamera();
     private SpriteBatch spriteBatch;
 
-    public static Sprite defaultImg;
-    private Texture img;
-
-    private List<Sprite> sprites = new ArrayList<>();
+    private Level level;
+    private LevelRenderer levelRenderer;
 
     @Override
     public void create() {
         spriteBatch = new SpriteBatch();
-        img = new Texture("badlogic.jpg");
 
-        defaultImg = new Sprite(img);
+        final float width = Gdx.graphics.getWidth();
+        final float height = Gdx.graphics.getHeight();
+        camera.setToOrtho(false, width, height);
+        camera.translate(-width/2, -height/2);
 
-        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        Gdx.input.setInputProcessor(new InputManager(camera, sprites));
+        level = new Level(8, 8);
+        levelRenderer = new LevelRenderer(level, camera);
+
+        Gdx.input.setInputProcessor(new InputManager(camera, level));
     }
 
     public void update(float dt) {
+        level.update(dt);
+        camera.update();
     }
 
     @Override
@@ -43,19 +48,11 @@ public class Curiosity extends ApplicationAdapter {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        spriteBatch.setProjectionMatrix(camera.combined);
-        spriteBatch.begin();
-        {
-            for (Sprite sprite : sprites) {
-                sprite.draw(spriteBatch);
-            }
-        }
-        spriteBatch.end();
+        levelRenderer.render(spriteBatch);
     }
 
     @Override
     public void dispose() {
         spriteBatch.dispose();
-        img.dispose();
     }
 }
