@@ -20,7 +20,7 @@ public class LevelRenderer {
         shapeRenderer = new ShapeRenderer();
     }
 
-    public void setLevel(Level level) {
+    public void updateLevel(Level level) {
         this.level = level;
     }
 

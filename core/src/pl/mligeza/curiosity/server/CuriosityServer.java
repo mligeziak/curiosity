@@ -1,11 +1,11 @@
 package pl.mligeza.curiosity.server;
 
+import com.badlogic.gdx.math.Vector2;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import pl.mligeza.curiosity.level.Level;
-import pl.mligeza.curiosity.level.tiles.Tile;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,6 +28,7 @@ public class CuriosityServer {
         kryo.register(Request.class);
         kryo.register(Level.class);
         kryo.register(int[].class);
+        kryo.register(Vector2.class);
 
         server.start();
         server.bind(54555, 54777);
@@ -46,6 +47,12 @@ public class CuriosityServer {
                     if(request.request.equals("GET_LEVEL")) {
                         connection.sendTCP(level);
                     }
+                }
+                else if(object instanceof Vector2) {
+                    Vector2 destroy = (Vector2) object;
+                    level.destroyTile((int) destroy.x, (int) destroy.y);
+                    sendToAll(destroy);
+                    System.out.println("Zniszczono tile: " + (int) destroy.x + ", " + (int) destroy.y);
                 }
             }
         });

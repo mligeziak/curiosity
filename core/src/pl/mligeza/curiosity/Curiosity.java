@@ -37,7 +37,7 @@ public class Curiosity extends ApplicationAdapter {
     }
 
     private void update(float dt) {
-        levelRenderer.setLevel(clientService.level);
+        levelRenderer.updateLevel(clientService.level);
     }
 
     @Override

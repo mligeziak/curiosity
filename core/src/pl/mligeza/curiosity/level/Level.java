@@ -14,7 +14,7 @@ public class Level {
 
         this.tiles = new int[width * height];
 
-        Arrays.fill(tiles, 0);
+        Arrays.fill(tiles, 1);
     }
 
     public Level() { }
@@ -24,6 +24,10 @@ public class Level {
 
     public Tile getTile(int x, int y) {
         return Tile.tiles[tiles[x + y * width]];
+    }
+
+    public void destroyTile(int x, int y) {
+        tiles[x + y * width] = 0;
     }
 
     public int[] getTiles() {

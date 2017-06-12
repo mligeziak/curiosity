@@ -1,5 +1,6 @@
 package pl.mligeza.curiosity.server;
 
+import com.badlogic.gdx.math.Vector2;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
@@ -23,6 +24,7 @@ public class ClientService extends Thread {
             kryo.register(Request.class);
             kryo.register(Level.class);
             kryo.register(int[].class);
+            kryo.register(Vector2.class);
 
             client.start();
             client.connect(5000, "localhost", 54555, 54777);
@@ -39,13 +41,18 @@ public class ClientService extends Thread {
             public void received (Connection connection, Object object) {
                 if(object instanceof Level) {
                     level = (Level) object;
-                    System.out.println("Odebrano level");
+                }
+                else if(object instanceof Vector2) {
+                    Vector2 destroy = (Vector2) object;
+                    level.destroyTile((int) destroy.x, (int) destroy.y);
                 }
             }
         });
     }
 
     public void destroyTile(int x, int y) {
+        Vector2 destroy = new Vector2(x, y);
+        client.sendTCP(destroy);
     }
 
     public void sendRequest(String text) {

@@ -27,8 +27,8 @@ public class Tile {
     }
 
     public static void initTiles() {
-        defaultTile = new Tile(0);
-        emptyTile = new EmptyTile(1);
+        emptyTile = new EmptyTile(0);
+        defaultTile = new Tile(1);
         groundTile = new GroundTile(2);
     }
 }
