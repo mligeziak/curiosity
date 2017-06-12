@@ -30,6 +30,15 @@ public class Level {
         tiles[x + y * width] = 0;
     }
 
+    public boolean isClear() {
+        for(int tile : tiles) {
+            if(tile != 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public int[] getTiles() {
         return tiles;
     }
