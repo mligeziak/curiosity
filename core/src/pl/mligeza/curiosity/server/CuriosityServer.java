@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CuriosityServer {
+    public static final String TAG = "[CuriosityServer]";
+
     private static List<Player> players;
     private static Server server;
     private static int nextPlayerNumber;
@@ -20,7 +22,8 @@ public class CuriosityServer {
     private static final int LEVEL_W = 4;
     private static final int LEVEL_H = 4;
 
-    public static void main (String[] args) throws IOException {
+    public static void main(String[] args) throws IOException {
+
         players = new ArrayList<>();
         server = new Server();
         nextPlayerNumber = 1;
@@ -38,45 +41,43 @@ public class CuriosityServer {
         server.bind(54555, 54777);
 
         server.addListener(new Listener() {
-            public void received (Connection connection, Object object) {
-                if(object instanceof Player) {
-                    Player player = (Player) object;
+            public void received(Connection connection, Object object) {
+                if (object instanceof Player) {
+                    Player player = (Player)object;
                     player.connection = connection;
                     player.number = nextPlayerNumber;
                     nextPlayerNumber++;
                     players.add(player);
-                }
-                else if(object instanceof Request) {
-                    Request request = (Request) object;
-                    if(request.request.equals("GET_LEVEL")) {
+                } else if (object instanceof Request) {
+                    Request request = (Request)object;
+                    if (request.request.equals("GET_LEVEL")) {
                         connection.sendTCP(level);
                     }
-                }
-                else if(object instanceof Vector2) {
-                    Vector2 destroy = (Vector2) object;
-                    level.destroyTile((int) destroy.x, (int) destroy.y);
+                } else if (object instanceof Vector2) {
+                    Vector2 destroy = (Vector2)object;
+//                    Gdx.app.log(TAG, "Mouse pos: " + destroy);
+                    level.destroyTile((int)destroy.x, (int)destroy.y);
                     sendToAll(destroy);
-                    if(level.isClear()) {
+                    if (level.isClear()) {
                         System.out.println("Level wyczyszczony");
                         levelsRemain--;
-                        if(levelsRemain == 0) {
+                        if (levelsRemain == 0) {
                             Player player = findPlayerByConnection(connection);
                             System.out.println("Wygrał gracz" + player.number);
-                        }
-                        else {
+                        } else {
                             level = new Level(LEVEL_W, LEVEL_H);
                             sendToAll(level);
                         }
                     }
-                    System.out.println("Zniszczono tile: " + (int) destroy.x + ", " + (int) destroy.y);
+                    System.out.println("Zniszczono tile: " + (int)destroy.x + ", " + (int)destroy.y);
                 }
             }
         });
     }
 
     public static Player findPlayerByConnection(Connection connection) {
-        for(Player player : players) {
-            if(player.connection.equals(connection)) {
+        for (Player player : players) {
+            if (player.connection.equals(connection)) {
                 return player;
             }
         }
@@ -84,7 +85,7 @@ public class CuriosityServer {
     }
 
     public static void sendToAll(Object object) {
-        for(Player player : players) {
+        for (Player player : players) {
             player.connection.sendTCP(object);
         }
     }

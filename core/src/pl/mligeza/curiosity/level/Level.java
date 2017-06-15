@@ -14,29 +14,39 @@ public class Level {
 
         this.tiles = new int[width * height];
 
-        Arrays.fill(tiles, 1);
+        Arrays.fill(tiles, 1); // FIX(hubert): Avoid magic numbers!!!
     }
 
-    public Level() { }
+    public Level() { // NOTE(hubert): Need for Kryonet
+    }
 
     public void update(float dt) {
     }
 
     public Tile getTile(int x, int y) {
+        if (x < 0 || y < 0 || x > width || y > height) throw new RuntimeException("Coords cannot be out of bounds");
+
         return Tile.tiles[tiles[x + y * width]];
     }
 
     public void destroyTile(int x, int y) {
-        tiles[x + y * width] = 0;
+        if (x < 0 || y < 0 || x > width - 1 || y > height - 1) return;
+        setTile(x, y, 0); // FIX(hubert): change tile id number to corresponding Tile id from object, avoid magic numbers
     }
 
     public boolean isClear() {
-        for(int tile : tiles) {
-            if(tile != 0) {
+        for (int tile : tiles) {
+            if (tile != 0) { // FIX(hubert): same here, avoid magic numbers
                 return false;
             }
         }
         return true;
+    }
+
+    public void setTile(int x, int y, int tile) {
+        if (x < 0 || y < 0 || x > width || y > height) return;
+
+        tiles[x + y * width] = tile;
     }
 
     public int[] getTiles() {
