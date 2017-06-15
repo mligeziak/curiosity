@@ -7,6 +7,8 @@ import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import pl.mligeza.curiosity.level.Level;
 import pl.mligeza.curiosity.level.tiles.DefaultTile;
+import pl.mligeza.curiosity.level.tiles.EmptyTile;
+import pl.mligeza.curiosity.level.tiles.GroundTile;
 import pl.mligeza.curiosity.level.tiles.Tile;
 
 import java.io.IOException;
@@ -19,8 +21,8 @@ public class CuriosityServer {
     private static int nextPlayerNumber;
     private static Level level;
     private static int levelsRemain;
-    private static final int LEVEL_W = 4;
-    private static final int LEVEL_H = 4;
+    private static final int LEVEL_W = 8;
+    private static final int LEVEL_H = 8;
 
     public static void main(String[] args) throws IOException {
         Tile.initTiles();
@@ -40,6 +42,8 @@ public class CuriosityServer {
         kryo.register(Tile[].class);
 
         kryo.register(DefaultTile.class);
+        kryo.register(EmptyTile.class);
+        kryo.register(GroundTile.class);
 
         server.start();
         server.bind(54555, 54777);
