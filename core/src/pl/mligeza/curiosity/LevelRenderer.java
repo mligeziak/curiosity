@@ -9,9 +9,9 @@ import pl.mligeza.curiosity.level.tiles.Tile;
 
 public class LevelRenderer {
     public static final String TAG = "[LevelRenderer]";
+
     public Level level;
     public OrthographicCamera camera;
-
     public ShapeRenderer shapeRenderer;
 
     public LevelRenderer(Level level, OrthographicCamera camera) {

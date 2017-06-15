@@ -9,7 +9,6 @@ public class Tile {
     public static Tile[] tiles = new Tile[MAX_TILES];
 
     public static Tile defaultTile;
-
     public static Tile emptyTile;
     public static Tile groundTile;
 

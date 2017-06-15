@@ -8,8 +8,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import pl.mligeza.curiosity.level.tiles.Tile;
 import pl.mligeza.curiosity.server.ClientService;
 
-import java.util.Arrays;
-
 public class Curiosity extends ApplicationAdapter {
     public static final String TAG = "[Curiosity]";
 
@@ -17,7 +15,6 @@ public class Curiosity extends ApplicationAdapter {
     private SpriteBatch spriteBatch;
 
     private LevelRenderer levelRenderer;
-
     private ClientService clientService;
 
     @Override
@@ -25,10 +22,7 @@ public class Curiosity extends ApplicationAdapter {
         spriteBatch = new SpriteBatch();
 
         Assets.initTextures();
-
         Tile.initTiles();
-
-        System.out.println("Tile tiles: " + Arrays.toString(Tile.tiles));
 
         clientService = new ClientService();
         clientService.start();
@@ -37,7 +31,6 @@ public class Curiosity extends ApplicationAdapter {
         camera.setToOrtho(true, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.update();
 
-
         levelRenderer = new LevelRenderer(clientService.level, camera);
 
         Gdx.input.setInputProcessor(new InputManager(clientService));
@@ -45,10 +38,6 @@ public class Curiosity extends ApplicationAdapter {
 
     private void update(float dt) {
         levelRenderer.updateLevel(clientService.level);
-    }
-
-    @Override
-    public void resize(int width, int height) {
     }
 
     @Override

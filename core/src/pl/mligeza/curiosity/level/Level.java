@@ -31,13 +31,10 @@ public class Level {
 
     public void hitTile(int x, int y) {
         if (x < 0 || y < 0 || x > width - 1 || y > height - 1) return;
-        System.out.println("tile pos: " + x + ", " + y);
-        System.out.println("tiles: " + Arrays.toString(tiles));
-        System.out.println("tiles: " + Arrays.toString(Tile.tiles));
+
         Tile tile = getTile(x, y);
-        System.out.println(tile);
         tile.hit();
-        System.out.println(tile.durability);
+
         if (tile.durability <= 0) {
             setTile(x, y, Tile.emptyTile);
         }
