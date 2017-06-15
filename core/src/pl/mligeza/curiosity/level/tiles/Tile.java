@@ -49,6 +49,7 @@ public abstract class Tile {
             System.out.println("HIT!");
             durability--;
             System.out.println("Tile durability: " + durability);
+            texId--;
             if (durability == 0) {
                 destroyed = true;
             }

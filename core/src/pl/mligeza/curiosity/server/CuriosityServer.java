@@ -20,18 +20,19 @@ public class CuriosityServer {
     private static Server server;
     private static int nextPlayerNumber;
     private static Level level;
-    private static int levelsRemain;
-    private static final int LEVEL_W = 4;
-    private static final int LEVEL_H = 4;
+    private static int levelLayers;
+    private static final int LEVEL_W = 8; // NOTE(hubert): max 16x16
+    private static final int LEVEL_H = 8;
 
     public static void main(String[] args) throws IOException {
         Tile.initTiles();
 
         players = new ArrayList<>();
         server = new Server();
+        levelLayers = 2;
         nextPlayerNumber = 1;
-        level = new Level(LEVEL_W, LEVEL_H);
-        levelsRemain = 2;
+
+        level = new Level(LEVEL_W, LEVEL_H, levelLayers);
 
         Kryo kryo = server.getKryo();
         kryo.register(Player.class);
@@ -65,16 +66,17 @@ public class CuriosityServer {
                     Vector2 destroy = (Vector2)object;
                     level.hitTile((int)destroy.x, (int)destroy.y);
                     sendToAll(destroy);
+
                     final boolean isLevelCleared = level.isClear();
                     System.out.println("isLevelCleared = " + isLevelCleared);
                     if (isLevelCleared) {
                         System.out.println("Level wyczyszczony");
-                        levelsRemain--;
-                        if (levelsRemain == 0) {
+                        levelLayers--;
+                        if (levelLayers == 0) {
                             Player player = findPlayerByConnection(connection);
                             System.out.println("Wygrał gracz" + player.number);
                         } else {
-                            level = new Level(LEVEL_W, LEVEL_H);
+                            level.generateLevel(new DefaultTile(Tile.defaultTile));
                             sendToAll(level);
                         }
                     }

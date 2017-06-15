@@ -4,28 +4,31 @@ import pl.mligeza.curiosity.level.tiles.EmptyTile;
 import pl.mligeza.curiosity.level.tiles.GroundTile;
 import pl.mligeza.curiosity.level.tiles.Tile;
 
-import java.util.Arrays;
-
 public class Level {
     public int width, height;
+
     private Tile[] tiles;
+    private int layers;
 
     private int tilesLeft;
 
-    public Level(int width, int height) {
+    public Level(int width, int height, int layers) {
         this.width = width;
         this.height = height;
-        this.tiles = new Tile[width * height];
+        this.layers = layers;
 
+        generateLevel(new GroundTile(Tile.groundTile));
+    }
+
+    public void generateLevel(Tile tile) {
+        this.tiles = new Tile[width * height];
         this.tilesLeft = tiles.length;
 
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                setTile(x, y, new GroundTile(Tile.groundTile));
+                setTile(x, y, tile);
             }
         }
-
-        System.out.println("Tiles: " + Arrays.toString(tiles));
     }
 
     public Level() { // NOTE(hubert): Need for Kryonet
