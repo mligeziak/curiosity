@@ -5,7 +5,6 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
-import pl.mligeza.curiosity.Assets;
 import pl.mligeza.curiosity.level.Level;
 import pl.mligeza.curiosity.level.tiles.DefaultTile;
 import pl.mligeza.curiosity.level.tiles.Tile;
@@ -15,8 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CuriosityServer {
-    public static final String TAG = "[CuriosityServer]";
-
     private static List<Player> players;
     private static Server server;
     private static int nextPlayerNumber;

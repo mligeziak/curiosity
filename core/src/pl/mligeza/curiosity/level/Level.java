@@ -5,15 +5,12 @@ import pl.mligeza.curiosity.level.tiles.Tile;
 import java.util.Arrays;
 
 public class Level {
-    public static final String TAG = "[Level]";
-
     public int width, height;
     private Tile[] tiles;
 
     public Level(int width, int height) {
         this.width = width;
         this.height = height;
-
         this.tiles = new Tile[width * height];
 
         Arrays.fill(tiles, Tile.defaultTile);
@@ -43,7 +40,6 @@ public class Level {
     }
 
     public boolean isClear() {
-        System.out.println(Arrays.toString(tiles));
         for (Tile tile : tiles) {
             if (tile.id != Tile.emptyTile.id) {
                 return false;

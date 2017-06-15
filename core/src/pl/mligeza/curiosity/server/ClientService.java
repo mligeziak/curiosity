@@ -5,7 +5,6 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import pl.mligeza.curiosity.Assets;
 import pl.mligeza.curiosity.level.Level;
 import pl.mligeza.curiosity.level.tiles.DefaultTile;
 import pl.mligeza.curiosity.level.tiles.Tile;
@@ -46,13 +45,12 @@ public class ClientService extends Thread {
         sendRequest("GET_LEVEL");
 
         client.addListener(new Listener() {
-            public void received (Connection connection, Object object) {
-                if(object instanceof Level) {
-                    level = (Level) object;
-                }
-                else if(object instanceof Vector2) {
-                    Vector2 destroy = (Vector2) object;
-                    level.hitTile((int) destroy.x, (int) destroy.y);
+            public void received(Connection connection, Object object) {
+                if (object instanceof Level) {
+                    level = (Level)object;
+                } else if (object instanceof Vector2) {
+                    Vector2 destroy = (Vector2)object;
+                    level.hitTile((int)destroy.x, (int)destroy.y);
                 }
             }
         });
