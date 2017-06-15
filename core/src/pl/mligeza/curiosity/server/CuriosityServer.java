@@ -6,6 +6,7 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import pl.mligeza.curiosity.level.Level;
+import pl.mligeza.curiosity.level.tiles.Tile;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class CuriosityServer {
     private static final int LEVEL_H = 4;
 
     public static void main(String[] args) throws IOException {
+        Tile.initTiles();
 
         players = new ArrayList<>();
         server = new Server();
@@ -56,7 +58,7 @@ public class CuriosityServer {
                 } else if (object instanceof Vector2) {
                     Vector2 destroy = (Vector2)object;
 //                    Gdx.app.log(TAG, "Mouse pos: " + destroy);
-                    level.destroyTile((int)destroy.x, (int)destroy.y);
+                    level.hitTile((int)destroy.x, (int)destroy.y);
                     sendToAll(destroy);
                     if (level.isClear()) {
                         System.out.println("Level wyczyszczony");

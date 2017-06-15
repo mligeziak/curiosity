@@ -1,6 +1,7 @@
 package pl.mligeza.curiosity.level.tiles;
 
 import com.badlogic.gdx.graphics.Texture;
+import pl.mligeza.curiosity.Assets;
 
 public class Tile {
     public static final int TILE_SIZE = 32;
@@ -16,19 +17,28 @@ public class Tile {
     private Texture defaultTexture;
     public int id;
 
+    public int durability = 0;
+
     public Texture texture;
 
-    public Tile(int id) {
+    public Tile(int id, int durability) {
         this.id = id;
-        this.tiles[id] = this;
+        this.durability = durability;
 
-        defaultTexture = new Texture("tiles/default-tile.png");
-        texture = new Texture(defaultTexture.getTextureData());
+        tiles[id] = this;
+
+        defaultTexture = Assets.defaultTileTexture;
+        if (id == 1) texture = defaultTexture;
     }
 
     public static void initTiles() {
-        emptyTile = new EmptyTile(0);
-        defaultTile = new Tile(1);
-        groundTile = new GroundTile(2);
+        emptyTile = new EmptyTile(0, 0);
+        defaultTile = new Tile(1, 5);
+        groundTile = new GroundTile(2, 2);
+    }
+
+    public void hit() {
+        durability--;
+        // TODO(hubert): Texture change based on durability
     }
 }

@@ -6,6 +6,7 @@ import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import pl.mligeza.curiosity.level.Level;
+import pl.mligeza.curiosity.level.tiles.Tile;
 
 import java.io.IOException;
 
@@ -15,6 +16,8 @@ public class ClientService extends Thread {
 
     @Override
     public void run() {
+        Tile.initTiles();
+
         level = null;
         try {
             client = new Client();
@@ -44,7 +47,7 @@ public class ClientService extends Thread {
                 }
                 else if(object instanceof Vector2) {
                     Vector2 destroy = (Vector2) object;
-                    level.destroyTile((int) destroy.x, (int) destroy.y);
+                    level.hitTile((int) destroy.x, (int) destroy.y);
                 }
             }
         });

@@ -1,11 +1,11 @@
 package pl.mligeza.curiosity.level.tiles;
 
-import com.badlogic.gdx.graphics.Texture;
+import pl.mligeza.curiosity.Assets;
 
 public class GroundTile extends Tile {
-    public GroundTile(int id) {
-        super(id);
+    public GroundTile(int id, int durability) {
+        super(id, durability);
 
-        texture = new Texture("tiles/ground-tile.png");
+        texture = Assets.groundTileTexture;
     }
 }

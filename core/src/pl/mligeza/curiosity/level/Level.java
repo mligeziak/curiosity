@@ -29,9 +29,18 @@ public class Level {
         return Tile.tiles[tiles[x + y * width]];
     }
 
-    public void destroyTile(int x, int y) {
+    public void hitTile(int x, int y) {
         if (x < 0 || y < 0 || x > width - 1 || y > height - 1) return;
-        setTile(x, y, 0); // FIX(hubert): change tile id number to corresponding Tile id from object, avoid magic numbers
+        System.out.println("tile pos: " + x + ", " + y);
+        System.out.println("tiles: " + Arrays.toString(tiles));
+        System.out.println("tiles: " + Arrays.toString(Tile.tiles));
+        Tile tile = getTile(x, y);
+        System.out.println(tile);
+        tile.hit();
+        System.out.println(tile.durability);
+        if (tile.durability <= 0) {
+            setTile(x, y, 0); // FIX(hubert): change tile id number to corresponding Tile id from object, avoid magic numbers
+        }
     }
 
     public boolean isClear() {

@@ -1,11 +1,11 @@
 package pl.mligeza.curiosity.level.tiles;
 
-import com.badlogic.gdx.graphics.Texture;
+import pl.mligeza.curiosity.Assets;
 
 public class EmptyTile extends Tile {
-    public EmptyTile(int id) {
-        super(id);
+    public EmptyTile(int id, int durability) {
+        super(id, durability);
 
-        texture = new Texture("tiles/empty-tile.png");
+        texture = Assets.emptyTileTexture;
     }
 }
