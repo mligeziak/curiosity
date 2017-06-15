@@ -5,6 +5,7 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
+import pl.mligeza.curiosity.Assets;
 import pl.mligeza.curiosity.level.Level;
 import pl.mligeza.curiosity.level.tiles.Tile;
 
@@ -36,8 +37,11 @@ public class CuriosityServer {
         kryo.register(Player.class);
         kryo.register(Request.class);
         kryo.register(Level.class);
-        kryo.register(int[].class);
         kryo.register(Vector2.class);
+        kryo.register(int[].class);
+        kryo.register(Tile[].class);
+        kryo.register(Tile.class);
+
 
         server.start();
         server.bind(54555, 54777);

@@ -6,6 +6,6 @@ public class GroundTile extends Tile {
     public GroundTile(int id, int durability) {
         super(id, durability);
 
-        texture = Assets.groundTileTexture;
+        texId = Assets.GROUND_TEX_ID;
     }
 }

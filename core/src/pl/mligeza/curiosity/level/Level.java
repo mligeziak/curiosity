@@ -6,15 +6,15 @@ import java.util.Arrays;
 
 public class Level {
     public int width, height;
-    private int[] tiles;
+    private Tile[] tiles;
 
     public Level(int width, int height) {
         this.width = width;
         this.height = height;
 
-        this.tiles = new int[width * height];
+        this.tiles = new Tile[width * height];
 
-        Arrays.fill(tiles, 1); // FIX(hubert): Avoid magic numbers!!!
+        Arrays.fill(tiles, Tile.defaultTile);
     }
 
     public Level() { // NOTE(hubert): Need for Kryonet
@@ -26,7 +26,7 @@ public class Level {
     public Tile getTile(int x, int y) {
         if (x < 0 || y < 0 || x > width || y > height) throw new RuntimeException("Coords cannot be out of bounds");
 
-        return Tile.tiles[tiles[x + y * width]];
+        return tiles[x + y * width];
     }
 
     public void hitTile(int x, int y) {
@@ -39,26 +39,26 @@ public class Level {
         tile.hit();
         System.out.println(tile.durability);
         if (tile.durability <= 0) {
-            setTile(x, y, 0); // FIX(hubert): change tile id number to corresponding Tile id from object, avoid magic numbers
+            setTile(x, y, Tile.emptyTile);
         }
     }
 
     public boolean isClear() {
-        for (int tile : tiles) {
-            if (tile != 0) { // FIX(hubert): same here, avoid magic numbers
+        for (Tile tile : tiles) {
+            if (tile.id != Tile.emptyTile.id) {
                 return false;
             }
         }
         return true;
     }
 
-    public void setTile(int x, int y, int tile) {
+    public void setTile(int x, int y, Tile tile) {
         if (x < 0 || y < 0 || x > width || y > height) return;
 
         tiles[x + y * width] = tile;
     }
 
-    public int[] getTiles() {
+    public Tile[] getTiles() {
         return tiles;
     }
 }

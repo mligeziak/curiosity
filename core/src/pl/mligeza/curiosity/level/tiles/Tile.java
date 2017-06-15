@@ -1,6 +1,5 @@
 package pl.mligeza.curiosity.level.tiles;
 
-import com.badlogic.gdx.graphics.Texture;
 import pl.mligeza.curiosity.Assets;
 
 public class Tile {
@@ -14,21 +13,25 @@ public class Tile {
     public static Tile emptyTile;
     public static Tile groundTile;
 
-    private Texture defaultTexture;
+    public int defaultTexId;
+    public int texId;
+
     public int id;
 
+    public int maxDurability;
     public int durability = 0;
 
-    public Texture texture;
+    public Tile() {// NOTE(hubert): For KryoNet
+    }
 
-    public Tile(int id, int durability) {
+    public Tile(int id, int maxDurability) {
         this.id = id;
-        this.durability = durability;
+        this.durability = this.maxDurability = maxDurability;
 
         tiles[id] = this;
 
-        defaultTexture = Assets.defaultTileTexture;
-        if (id == 1) texture = defaultTexture;
+        defaultTexId = Assets.DEFAULT_TEX_ID;
+        if (id == 1) texId = defaultTexId;
     }
 
     public static void initTiles() {
@@ -39,6 +42,7 @@ public class Tile {
 
     public void hit() {
         durability--;
+        if (durability < 0) durability = maxDurability;
         // TODO(hubert): Texture change based on durability
     }
 }

@@ -6,6 +6,6 @@ public class EmptyTile extends Tile {
     public EmptyTile(int id, int durability) {
         super(id, durability);
 
-        texture = Assets.emptyTileTexture;
+        texId = Assets.EMPTY_TEX_ID;
     }
 }

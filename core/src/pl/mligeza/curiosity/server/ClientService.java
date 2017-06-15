@@ -5,6 +5,7 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import pl.mligeza.curiosity.Assets;
 import pl.mligeza.curiosity.level.Level;
 import pl.mligeza.curiosity.level.tiles.Tile;
 
@@ -26,8 +27,10 @@ public class ClientService extends Thread {
             kryo.register(Player.class);
             kryo.register(Request.class);
             kryo.register(Level.class);
-            kryo.register(int[].class);
             kryo.register(Vector2.class);
+            kryo.register(int[].class);
+            kryo.register(Tile[].class);
+            kryo.register(Tile.class);
 
             client.start();
             client.connect(5000, "localhost", 54555, 54777);
