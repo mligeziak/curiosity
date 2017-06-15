@@ -3,8 +3,11 @@ package pl.mligeza.curiosity.level.tiles;
 import pl.mligeza.curiosity.Assets;
 
 public class GroundTile extends Tile {
-    public GroundTile(int id, int durability) {
-        super(id, durability);
+    public GroundTile() {
+    }
+
+    public GroundTile(int id, int durability, boolean isDestructable) {
+        super(id, durability, isDestructable);
 
         texId = Assets.GROUND_TEX_ID;
     }

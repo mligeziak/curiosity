@@ -5,6 +5,8 @@ import pl.mligeza.curiosity.level.tiles.Tile;
 import java.util.Arrays;
 
 public class Level {
+    public static final String TAG = "[Level]";
+
     public int width, height;
     private Tile[] tiles;
 
@@ -41,11 +43,13 @@ public class Level {
     }
 
     public boolean isClear() {
+        System.out.println(Arrays.toString(tiles));
         for (Tile tile : tiles) {
             if (tile.id != Tile.emptyTile.id) {
                 return false;
             }
         }
+
         return true;
     }
 

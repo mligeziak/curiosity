@@ -7,6 +7,7 @@ import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import pl.mligeza.curiosity.Assets;
 import pl.mligeza.curiosity.level.Level;
+import pl.mligeza.curiosity.level.tiles.DefaultTile;
 import pl.mligeza.curiosity.level.tiles.Tile;
 
 import java.io.IOException;
@@ -40,8 +41,8 @@ public class CuriosityServer {
         kryo.register(Vector2.class);
         kryo.register(int[].class);
         kryo.register(Tile[].class);
-        kryo.register(Tile.class);
 
+        kryo.register(DefaultTile.class);
 
         server.start();
         server.bind(54555, 54777);
@@ -61,10 +62,11 @@ public class CuriosityServer {
                     }
                 } else if (object instanceof Vector2) {
                     Vector2 destroy = (Vector2)object;
-//                    Gdx.app.log(TAG, "Mouse pos: " + destroy);
                     level.hitTile((int)destroy.x, (int)destroy.y);
                     sendToAll(destroy);
-                    if (level.isClear()) {
+                    final boolean isLevelCleared = level.isClear();
+                    System.out.println("isLevelCleated = " + isLevelCleared);
+                    if (isLevelCleared) {
                         System.out.println("Level wyczyszczony");
                         levelsRemain--;
                         if (levelsRemain == 0) {
@@ -75,7 +77,7 @@ public class CuriosityServer {
                             sendToAll(level);
                         }
                     }
-                    System.out.println("Zniszczono tile: " + (int)destroy.x + ", " + (int)destroy.y);
+//                    System.out.println("Zniszczono tile: " + (int)destroy.x + ", " + (int)destroy.y);
                 }
             }
         });
