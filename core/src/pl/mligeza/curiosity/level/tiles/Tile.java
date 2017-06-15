@@ -13,11 +13,21 @@ public abstract class Tile {
     public int texId;
     public int id;
 
-    public int maxDurability;
+    private int maxDurability;
     public int durability = 0;
     public boolean isDestructable = false;
+    public boolean destroyed = false;
 
     public Tile() {// NOTE(hubert): For KryoNet
+    }
+
+    public Tile(Tile tile) {
+        this.id = tile.id;
+        this.texId = tile.texId;
+        this.isDestructable = tile.isDestructable;
+        this.destroyed = tile.destroyed;
+        this.durability = tile.durability;
+        this.maxDurability = tile.maxDurability;
     }
 
     public Tile(int id, int maxDurability, boolean isDestructable) {
@@ -38,6 +48,10 @@ public abstract class Tile {
         if (isDestructable) {
             System.out.println("HIT!");
             durability--;
+            System.out.println("Tile durability: " + durability);
+            if (durability == 0) {
+                destroyed = true;
+            }
         }
         // TODO(hubert): Texture change based on durability
     }

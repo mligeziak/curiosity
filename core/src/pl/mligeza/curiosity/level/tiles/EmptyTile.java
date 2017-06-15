@@ -6,6 +6,10 @@ public class EmptyTile extends Tile {
     public EmptyTile() {
     }
 
+    public EmptyTile(Tile tile) {
+        super(tile);
+    }
+
     public EmptyTile(int id, int durability, boolean isDestructable) {
         super(id, durability, isDestructable);
 

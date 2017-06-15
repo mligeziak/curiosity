@@ -21,8 +21,8 @@ public class CuriosityServer {
     private static int nextPlayerNumber;
     private static Level level;
     private static int levelsRemain;
-    private static final int LEVEL_W = 8;
-    private static final int LEVEL_H = 8;
+    private static final int LEVEL_W = 4;
+    private static final int LEVEL_H = 4;
 
     public static void main(String[] args) throws IOException {
         Tile.initTiles();
@@ -66,7 +66,7 @@ public class CuriosityServer {
                     level.hitTile((int)destroy.x, (int)destroy.y);
                     sendToAll(destroy);
                     final boolean isLevelCleared = level.isClear();
-                    System.out.println("isLevelCleated = " + isLevelCleared);
+                    System.out.println("isLevelCleared = " + isLevelCleared);
                     if (isLevelCleared) {
                         System.out.println("Level wyczyszczony");
                         levelsRemain--;

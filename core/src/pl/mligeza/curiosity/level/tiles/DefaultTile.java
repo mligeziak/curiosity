@@ -6,6 +6,10 @@ public class DefaultTile extends Tile {
     public DefaultTile() {
     }
 
+    public DefaultTile(Tile tile) {
+        super(tile);
+    }
+
     public DefaultTile(int id, int durability, boolean isDestructable) {
         super(id, durability, isDestructable);
 

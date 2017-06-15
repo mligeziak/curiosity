@@ -1,5 +1,7 @@
 package pl.mligeza.curiosity.level;
 
+import pl.mligeza.curiosity.level.tiles.EmptyTile;
+import pl.mligeza.curiosity.level.tiles.GroundTile;
 import pl.mligeza.curiosity.level.tiles.Tile;
 
 import java.util.Arrays;
@@ -8,12 +10,22 @@ public class Level {
     public int width, height;
     private Tile[] tiles;
 
+    private int tilesLeft;
+
     public Level(int width, int height) {
         this.width = width;
         this.height = height;
         this.tiles = new Tile[width * height];
 
-        Arrays.fill(tiles, Tile.defaultTile);
+        this.tilesLeft = tiles.length;
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                setTile(x, y, new GroundTile(Tile.groundTile));
+            }
+        }
+
+        System.out.println("Tiles: " + Arrays.toString(tiles));
     }
 
     public Level() { // NOTE(hubert): Need for Kryonet
@@ -23,7 +35,9 @@ public class Level {
     }
 
     public Tile getTile(int x, int y) {
-        if (x < 0 || y < 0 || x > width || y > height) throw new RuntimeException("Coords cannot be out of bounds");
+        if (x < 0 || y < 0 || x > width - 1 || y > height - 1) {
+            throw new RuntimeException("Coords cannot be out of bounds");
+        }
 
         return tiles[x + y * width];
     }
@@ -34,23 +48,20 @@ public class Level {
         Tile tile = getTile(x, y);
         tile.hit();
 
-        if (tile.durability <= 0) {
-            setTile(x, y, Tile.emptyTile);
+        if (tile.destroyed) {
+            System.out.println("Tile destroyed");
+            setTile(x, y, new EmptyTile(Tile.emptyTile));
+            tilesLeft--;
+            System.out.println("Tiles left: " + tilesLeft);
         }
     }
 
     public boolean isClear() {
-        for (Tile tile : tiles) {
-            if (tile.id != Tile.emptyTile.id) {
-                return false;
-            }
-        }
-
-        return true;
+        return tilesLeft == 0;
     }
 
     public void setTile(int x, int y, Tile tile) {
-        if (x < 0 || y < 0 || x > width || y > height) return;
+        if (x < 0 || y < 0 || x > width - 1 || y > height - 1) return;
 
         tiles[x + y * width] = tile;
     }

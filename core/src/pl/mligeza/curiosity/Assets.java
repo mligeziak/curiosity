@@ -17,6 +17,10 @@ public class Assets {
         final Texture defaultTex = new Texture("tiles/default-tile.png");
         final Texture groundTex = new Texture("tiles/ground-tile.png");
 
+        final Texture groundTex1Hard = new Texture("tiles/ground-tile-1hard.png");
+        final Texture groundTex2Hard = new Texture("tiles/ground-tile-2hard.png");
+        final Texture groundTex3Hard = new Texture("tiles/ground-tile-3hard.png");
+
         textures.put(EMPTY_TEX_ID, emptyTex);
         textures.put(DEFAULT_TEX_ID, defaultTex);
         textures.put(GROUND_TEX_ID, groundTex);
