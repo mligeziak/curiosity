@@ -10,7 +10,6 @@ public class Assets {
     public static final int DEFAULT_TEX_ID = 1;
     public static final int GROUND_TEX_ID = 2;
 
-    private static Map<String, Integer> texturesId = new HashMap<>();
     private static Map<Integer, Texture> textures = new HashMap<>();
 
     public static void initTextures() {
