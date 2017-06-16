@@ -1,7 +1,5 @@
 package pl.mligeza.curiosity.level.tiles;
 
-import java.util.Arrays;
-
 public abstract class Tile {
     public static final int TILE_SIZE = 32;
     public static final int MAX_TILES = 8;
@@ -57,7 +55,7 @@ public abstract class Tile {
         if (isDestructable) {
             System.out.println("HIT!");
             durability--;
-            if(durability > 0) {
+            if (durability > 0) {
                 texId = tilesSet[durability - 1];
             }
             System.out.println("Tile durability: " + durability);

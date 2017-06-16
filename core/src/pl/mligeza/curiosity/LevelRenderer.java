@@ -1,7 +1,6 @@
 package pl.mligeza.curiosity;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -27,14 +26,13 @@ public class LevelRenderer {
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.setProjectionMatrix(camera.combined);
         spriteBatch.begin();
-        if (level != null) {
+        if (level != null && !level.isEnded) {
             for (int y = 0; y < level.height; y++) {
                 for (int x = 0; x < level.width; x++) {
                     Tile tile = level.getTile(x, y);
                     float xTile = x * Tile.TILE_SIZE;
                     float yTile = y * Tile.TILE_SIZE;
                     TextureRegion region = Assets.getTexture(tile.texId);
-//                    Texture texture = Assets.getTexture(tile.texId);
                     spriteBatch.draw(region, xTile, yTile);
                 }
             }

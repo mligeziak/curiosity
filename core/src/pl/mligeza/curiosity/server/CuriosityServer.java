@@ -76,9 +76,10 @@ public class CuriosityServer {
                     if (isLevelCleared) {
                         System.out.println("Level wyczyszczony");
                         level.currentLayer--;
-                        if (currentLayer == 0) {
+                        if (level.currentLayer == 0) {
                             Player player = findPlayerByConnection(connection);
                             System.out.println("Wygrał gracz" + player.number);
+                            level.isEnded = true;
                         } else {
                             level.generateLevel();
                             sendToAll(level);

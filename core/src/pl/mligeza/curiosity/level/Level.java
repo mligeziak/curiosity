@@ -8,6 +8,7 @@ public class Level {
     private Tile[] tiles;
     public int currentLayer;
 
+    public boolean isEnded = false;
     private int tilesLeft;
 
     public Level(int width, int height, int currentLayer) {
@@ -36,6 +37,9 @@ public class Level {
                 }
                 if (currentLayer == 1) {
                     setTile(x, y, new Level4Tile(Tile.level4Tile));
+                }
+                if (currentLayer == 0) {
+                    setTile(x, y, new EmptyTile(Tile.emptyTile));
                 }
             }
         }
