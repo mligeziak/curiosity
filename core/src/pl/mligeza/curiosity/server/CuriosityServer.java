@@ -79,7 +79,7 @@ public class CuriosityServer {
                             Player player = findPlayerByConnection(connection);
                             System.out.println("Wygrał gracz" + player.number);
                         } else {
-                            level.generateLevel(new Level1Tile(Tile.level1Tile));
+                            level.generateLevel(Tile.level1Tile);
                             sendToAll(level);
                         }
                     }
