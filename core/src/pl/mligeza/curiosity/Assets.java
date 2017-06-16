@@ -14,7 +14,7 @@ public class Assets {
     public static final int LEVEL_1_TEX_2_ID = 3;
     public static final int LEVEL_1_TEX_3_ID = 4;
 
-    private static Map<Integer, Texture> textures = new HashMap<>();
+    private static Map<Integer, TextureRegion> textures = new HashMap<>();
 
     public static void initTextures() {
         final Texture emptyTex = new Texture("tiles/empty-tile.png");
@@ -24,12 +24,12 @@ public class Assets {
         final Texture level1Tex2 = new Texture("tiles/level-1-tile-2.png");
         final Texture level1Tex3 = new Texture("tiles/level-1-tile-3.png");
 
-        textures.put(EMPTY_TEX_ID, emptyTex);
+        textures.put(EMPTY_TEX_ID, generateFlippedTextureRegion(emptyTex));
 
-        textures.put(LEVEL_1_TEX_0_ID, level1Tex0);
-        textures.put(LEVEL_1_TEX_1_ID, level1Tex1);
-        textures.put(LEVEL_1_TEX_2_ID, level1Tex2);
-        textures.put(LEVEL_1_TEX_3_ID, level1Tex3);
+        textures.put(LEVEL_1_TEX_0_ID, generateFlippedTextureRegion(level1Tex0));
+        textures.put(LEVEL_1_TEX_1_ID, generateFlippedTextureRegion(level1Tex1));
+        textures.put(LEVEL_1_TEX_2_ID, generateFlippedTextureRegion(level1Tex2));
+        textures.put(LEVEL_1_TEX_3_ID, generateFlippedTextureRegion(level1Tex3));
     }
 
     private static TextureRegion generateFlippedTextureRegion(Texture texture) {
@@ -39,7 +39,7 @@ public class Assets {
         return result;
     }
 
-    public static Texture getTexture(int textureId) {
+    public static TextureRegion getTexture(int textureId) {
         return textures.get(textureId);
     }
 }

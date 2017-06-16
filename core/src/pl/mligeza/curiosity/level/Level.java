@@ -4,8 +4,6 @@ import pl.mligeza.curiosity.level.tiles.EmptyTile;
 import pl.mligeza.curiosity.level.tiles.Level1Tile;
 import pl.mligeza.curiosity.level.tiles.Tile;
 
-import java.util.Arrays;
-
 public class Level {
     public int width, height;
 
@@ -35,15 +33,11 @@ public class Level {
                 if (tile instanceof EmptyTile) {
                     setTile(x, y, new EmptyTile(tile));
                 }
-
             }
         }
     }
 
     public Level() { // NOTE(hubert): Need for Kryonet
-    }
-
-    public void update(float dt) {
     }
 
     public Tile getTile(int x, int y) {
@@ -59,7 +53,6 @@ public class Level {
 
         Tile tile = getTile(x, y);
         tile.hit();
-
 
         if (tile.destroyed) {
             System.out.println("Tile destroyed");
@@ -85,7 +78,7 @@ public class Level {
 
     public String toString() {
         String string = "";
-        for (Tile tile: tiles) {
+        for (Tile tile : tiles) {
             string += tile.id + ", ";
         }
         return string;
