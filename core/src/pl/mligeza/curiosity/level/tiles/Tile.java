@@ -16,6 +16,7 @@ public abstract class Tile {
     public int durability = 0;
     public boolean isDestructable = false;
     public boolean destroyed = false;
+    public int[] tilesSet;
 
     public Tile() {// NOTE(hubert): For KryoNet
     }
@@ -27,30 +28,34 @@ public abstract class Tile {
         this.destroyed = tile.destroyed;
         this.durability = tile.durability;
         this.maxDurability = tile.maxDurability;
+        this.tilesSet = tile.tilesSet;
     }
 
     public Tile(int id, int maxDurability, boolean isDestructable) {
         this.id = id;
         this.durability = this.maxDurability = maxDurability;
         this.isDestructable = isDestructable;
+        this.tilesSet = new int[maxDurability];
 
         tiles[id] = this;
     }
 
     public static void initTiles() {
         emptyTile = new EmptyTile(0, 1, false);
-        level1Tile = new Level1Tile(1, 3, true);
+        level1Tile = new Level1Tile(1, 4, true);
     }
 
     public void hit() {
         if (isDestructable) {
             System.out.println("HIT!");
             durability--;
+            if(durability > 0) {
+                texId = tilesSet[durability - 1];
+            }
             System.out.println("Tile durability: " + durability);
             if (durability == 0) {
                 destroyed = true;
             }
         }
-        // TODO(hubert): Texture change based on durability
     }
 }

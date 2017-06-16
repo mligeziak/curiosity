@@ -23,6 +23,7 @@ public class InputManager extends InputAdapter {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+
         clientService.destroyTile(screenX/32, screenY/32);
         return true;
     }
