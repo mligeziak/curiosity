@@ -12,7 +12,7 @@ public abstract class Tile {
     public int texId;
     public int id;
 
-    private int maxDurability;
+    public int maxDurability;
     public int durability = 0;
     public boolean isDestructable = false;
     public boolean destroyed = false;

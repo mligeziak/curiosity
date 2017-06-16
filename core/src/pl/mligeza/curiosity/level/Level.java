@@ -8,14 +8,14 @@ public class Level {
     public int width, height;
 
     private Tile[] tiles;
-    private int layers;
+    private int layerId;
 
     private int tilesLeft;
 
-    public Level(int width, int height, int layers) {
+    public Level(int width, int height, int layerId) {
         this.width = width;
         this.height = height;
-        this.layers = layers;
+        this.layerId = layerId;
 
         generateLevel(new Level1Tile(Tile.level1Tile));
     }
@@ -71,5 +71,13 @@ public class Level {
 
     public Tile[] getTiles() {
         return tiles;
+    }
+
+    public String toString() {
+        String string = "";
+        for (Tile tile: tiles) {
+            string += tile.texId + ", ";
+        }
+        return string;
     }
 }

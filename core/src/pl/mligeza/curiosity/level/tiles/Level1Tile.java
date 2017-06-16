@@ -18,6 +18,6 @@ public class Level1Tile extends Tile {
         this.tilesSet[2] = Assets.LEVEL_1_TEX_1_ID;
         this.tilesSet[3] = Assets.LEVEL_1_TEX_0_ID;
 
-        this.texId = tilesSet[this.durability - 1];
+        this.texId = tilesSet[this.maxDurability - 1];
     }
 }

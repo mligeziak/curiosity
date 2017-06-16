@@ -13,6 +13,8 @@ public class EmptyTile extends Tile {
     public EmptyTile(int id, int durability, boolean isDestructable) {
         super(id, durability, isDestructable);
 
-        texId = Assets.EMPTY_TEX_ID;
+        this.tilesSet[0] = Assets.EMPTY_TEX_ID;
+
+        this.texId = tilesSet[this.maxDurability - 1];
     }
 }
