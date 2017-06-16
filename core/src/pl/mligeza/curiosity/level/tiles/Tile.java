@@ -9,7 +9,11 @@ public abstract class Tile {
     public static Tile[] tiles = new Tile[MAX_TILES];
 
     public static Tile emptyTile;
+
     public static Tile level1Tile;
+    public static Tile level2Tile;
+    public static Tile level3Tile;
+    public static Tile level4Tile;
 
     public int texId;
     public int id;
@@ -37,14 +41,16 @@ public abstract class Tile {
         this.id = id;
         this.durability = this.maxDurability = maxDurability;
         this.isDestructable = isDestructable;
-        this.tilesSet = new int[maxDurability];
 
         tiles[id] = this;
     }
 
     public static void initTiles() {
         emptyTile = new EmptyTile(0, 1, false);
-        level1Tile = new Level1Tile(1, 4, true);
+        level1Tile = new Level1Tile(1, 1, true);
+        level2Tile = new Level2Tile(1, 2, true);
+        level3Tile = new Level3Tile(1, 3, true);
+        level4Tile = new Level4Tile(1, 4, true);
     }
 
     public void hit() {

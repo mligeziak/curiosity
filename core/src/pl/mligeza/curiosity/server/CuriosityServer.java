@@ -6,9 +6,7 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import pl.mligeza.curiosity.level.Level;
-import pl.mligeza.curiosity.level.tiles.EmptyTile;
-import pl.mligeza.curiosity.level.tiles.Level1Tile;
-import pl.mligeza.curiosity.level.tiles.Tile;
+import pl.mligeza.curiosity.level.tiles.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,15 +19,15 @@ public class CuriosityServer {
     private static int nextPlayerNumber;
     private static Level level;
     private static int currentLayer;
-    private static final int LEVEL_W = 2; // NOTE(hubert): max 16x16
-    private static final int LEVEL_H = 2;
+    private static final int LEVEL_W = 8; // NOTE(hubert): max 16x16
+    private static final int LEVEL_H = 8;
 
     public static void main(String[] args) throws IOException {
         Tile.initTiles();
 
         players = new ArrayList<>();
         server = new Server();
-        currentLayer = 2;
+        currentLayer = 4;
         nextPlayerNumber = 1;
 
         level = new Level(LEVEL_W, LEVEL_H, currentLayer);
@@ -44,6 +42,9 @@ public class CuriosityServer {
 
         kryo.register(EmptyTile.class);
         kryo.register(Level1Tile.class);
+        kryo.register(Level2Tile.class);
+        kryo.register(Level3Tile.class);
+        kryo.register(Level4Tile.class);
 
         server.start();
         server.bind(54555, 54777);
@@ -74,12 +75,12 @@ public class CuriosityServer {
                     System.out.println("isLevelCleared = " + isLevelCleared);
                     if (isLevelCleared) {
                         System.out.println("Level wyczyszczony");
-                        currentLayer--;
+                        level.currentLayer--;
                         if (currentLayer == 0) {
                             Player player = findPlayerByConnection(connection);
                             System.out.println("Wygrał gracz" + player.number);
                         } else {
-                            level.generateLevel(Tile.level1Tile);
+                            level.generateLevel();
                             sendToAll(level);
                         }
                     }

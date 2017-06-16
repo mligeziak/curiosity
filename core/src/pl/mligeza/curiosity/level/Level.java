@@ -1,37 +1,41 @@
 package pl.mligeza.curiosity.level;
 
-import pl.mligeza.curiosity.level.tiles.EmptyTile;
-import pl.mligeza.curiosity.level.tiles.Level1Tile;
-import pl.mligeza.curiosity.level.tiles.Tile;
+import pl.mligeza.curiosity.level.tiles.*;
 
 public class Level {
     public int width, height;
 
     private Tile[] tiles;
-    private int layerId;
+    public int currentLayer;
 
     private int tilesLeft;
 
-    public Level(int width, int height, int layerId) {
+    public Level(int width, int height, int currentLayer) {
         this.width = width;
         this.height = height;
-        this.layerId = layerId;
+        this.currentLayer = currentLayer;
 
-        generateLevel(Tile.level1Tile);
+        generateLevel();
     }
 
-    public void generateLevel(Tile tile) {
+    public void generateLevel() {
         this.tiles = new Tile[width * height];
         this.tilesLeft = tiles.length;
         System.out.println("Tiles left: " + tilesLeft);
 
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                if (tile instanceof Level1Tile) {
-                    setTile(x, y, new Level1Tile(tile));
+                if (currentLayer == 4) {
+                    setTile(x, y, new Level1Tile(Tile.level1Tile));
                 }
-                if (tile instanceof EmptyTile) {
-                    setTile(x, y, new EmptyTile(tile));
+                if (currentLayer == 3) {
+                    setTile(x, y, new Level2Tile(Tile.level2Tile));
+                }
+                if (currentLayer == 2) {
+                    setTile(x, y, new Level3Tile(Tile.level3Tile));
+                }
+                if (currentLayer == 1) {
+                    setTile(x, y, new Level4Tile(Tile.level4Tile));
                 }
             }
         }
