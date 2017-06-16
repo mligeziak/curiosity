@@ -1,7 +1,7 @@
 package pl.mligeza.curiosity.level;
 
 import pl.mligeza.curiosity.level.tiles.EmptyTile;
-import pl.mligeza.curiosity.level.tiles.GroundTile;
+import pl.mligeza.curiosity.level.tiles.Level1Tile;
 import pl.mligeza.curiosity.level.tiles.Tile;
 
 public class Level {
@@ -17,7 +17,7 @@ public class Level {
         this.height = height;
         this.layers = layers;
 
-        generateLevel(new GroundTile(Tile.groundTile));
+        generateLevel(new Level1Tile(Tile.level1Tile));
     }
 
     public void generateLevel(Tile tile) {

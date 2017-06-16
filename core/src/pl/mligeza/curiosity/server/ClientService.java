@@ -6,9 +6,8 @@ import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import pl.mligeza.curiosity.level.Level;
-import pl.mligeza.curiosity.level.tiles.DefaultTile;
 import pl.mligeza.curiosity.level.tiles.EmptyTile;
-import pl.mligeza.curiosity.level.tiles.GroundTile;
+import pl.mligeza.curiosity.level.tiles.Level1Tile;
 import pl.mligeza.curiosity.level.tiles.Tile;
 
 import java.io.IOException;
@@ -33,9 +32,8 @@ public class ClientService extends Thread {
             kryo.register(int[].class);
             kryo.register(Tile[].class);
 
-            kryo.register(DefaultTile.class);
             kryo.register(EmptyTile.class);
-            kryo.register(GroundTile.class);
+            kryo.register(Level1Tile.class);
 
             client.start();
             client.connect(5000, "localhost", 54555, 54777);

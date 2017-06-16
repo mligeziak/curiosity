@@ -6,9 +6,8 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import pl.mligeza.curiosity.level.Level;
-import pl.mligeza.curiosity.level.tiles.DefaultTile;
 import pl.mligeza.curiosity.level.tiles.EmptyTile;
-import pl.mligeza.curiosity.level.tiles.GroundTile;
+import pl.mligeza.curiosity.level.tiles.Level1Tile;
 import pl.mligeza.curiosity.level.tiles.Tile;
 
 import java.io.IOException;
@@ -42,9 +41,8 @@ public class CuriosityServer {
         kryo.register(int[].class);
         kryo.register(Tile[].class);
 
-        kryo.register(DefaultTile.class);
         kryo.register(EmptyTile.class);
-        kryo.register(GroundTile.class);
+        kryo.register(Level1Tile.class);
 
         server.start();
         server.bind(54555, 54777);
@@ -76,11 +74,10 @@ public class CuriosityServer {
                             Player player = findPlayerByConnection(connection);
                             System.out.println("Wygrał gracz" + player.number);
                         } else {
-                            level.generateLevel(new DefaultTile(Tile.defaultTile));
+                            level.generateLevel(new Level1Tile(Tile.level1Tile));
                             sendToAll(level);
                         }
                     }
-//                    System.out.println("Zniszczono tile: " + (int)destroy.x + ", " + (int)destroy.y);
                 }
             }
         });

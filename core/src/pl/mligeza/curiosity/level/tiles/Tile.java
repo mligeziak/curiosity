@@ -6,9 +6,8 @@ public abstract class Tile {
 
     public static Tile[] tiles = new Tile[MAX_TILES];
 
-    public static Tile defaultTile;
     public static Tile emptyTile;
-    public static Tile groundTile;
+    public static Tile level1Tile;
 
     public int texId;
     public int id;
@@ -40,8 +39,7 @@ public abstract class Tile {
 
     public static void initTiles() {
         emptyTile = new EmptyTile(0, 1, false);
-        defaultTile = new DefaultTile(1, 1, true);
-        groundTile = new GroundTile(2, 2, true);
+        level1Tile = new Level1Tile(1, 3, true);
     }
 
     public void hit() {
