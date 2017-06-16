@@ -1,5 +1,7 @@
 package pl.mligeza.curiosity.level.tiles;
 
+import java.util.Arrays;
+
 public abstract class Tile {
     public static final int TILE_SIZE = 32;
     public static final int MAX_TILES = 8;

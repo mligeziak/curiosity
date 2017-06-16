@@ -4,6 +4,8 @@ import pl.mligeza.curiosity.level.tiles.EmptyTile;
 import pl.mligeza.curiosity.level.tiles.Level1Tile;
 import pl.mligeza.curiosity.level.tiles.Tile;
 
+import java.util.Arrays;
+
 public class Level {
     public int width, height;
 
@@ -17,16 +19,23 @@ public class Level {
         this.height = height;
         this.layerId = layerId;
 
-        generateLevel(new Level1Tile(Tile.level1Tile));
+        generateLevel(Tile.level1Tile);
     }
 
     public void generateLevel(Tile tile) {
         this.tiles = new Tile[width * height];
         this.tilesLeft = tiles.length;
+        System.out.println("Tiles left: " + tilesLeft);
 
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                setTile(x, y, tile);
+                if (tile instanceof Level1Tile) {
+                    setTile(x, y, new Level1Tile(tile));
+                }
+                if (tile instanceof EmptyTile) {
+                    setTile(x, y, new EmptyTile(tile));
+                }
+
             }
         }
     }
@@ -50,6 +59,7 @@ public class Level {
 
         Tile tile = getTile(x, y);
         tile.hit();
+
 
         if (tile.destroyed) {
             System.out.println("Tile destroyed");
@@ -76,7 +86,7 @@ public class Level {
     public String toString() {
         String string = "";
         for (Tile tile: tiles) {
-            string += tile.texId + ", ";
+            string += tile.id + ", ";
         }
         return string;
     }

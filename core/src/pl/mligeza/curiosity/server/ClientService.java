@@ -11,6 +11,7 @@ import pl.mligeza.curiosity.level.tiles.Level1Tile;
 import pl.mligeza.curiosity.level.tiles.Tile;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class ClientService extends Thread {
     private Client client;
@@ -50,6 +51,7 @@ public class ClientService extends Thread {
             public void received(Connection connection, Object object) {
                 if (object instanceof Level) {
                     level = (Level)object;
+                    System.out.println("CLIENT LEVEL: " + Arrays.toString(level.getTiles()));
                 } else if (object instanceof Vector2) {
                     Vector2 destroy = (Vector2)object;
                     level.hitTile((int)destroy.x, (int)destroy.y);

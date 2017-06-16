@@ -12,6 +12,7 @@ import pl.mligeza.curiosity.level.tiles.Tile;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CuriosityServer {
@@ -58,12 +59,15 @@ public class CuriosityServer {
                 } else if (object instanceof Request) {
                     Request request = (Request)object;
                     if (request.request.equals("GET_LEVEL")) {
+                        System.out.println("SENDING LEVEL: " + Arrays.toString(level.getTiles()));
                         connection.sendTCP(level);
                     }
                 } else if (object instanceof Vector2) {
                     Vector2 destroy = (Vector2)object;
+                    System.out.println("Mouse pos: " + destroy);
                     level.hitTile((int)destroy.x, (int)destroy.y);
-                    System.out.println(level.toString());
+                    System.out.println("SERVER LEVEL: " + Arrays.toString(level.getTiles()));
+
                     sendToAll(destroy);
 
                     final boolean isLevelCleared = level.isClear();
