@@ -62,7 +62,7 @@ public class CuriosityServer {
                     }
                 } else if (object instanceof Vector2) {
                     Vector2 destroy = (Vector2)object;
-                    //level.hitTile((int)destroy.x, (int)destroy.y);
+                    level.hitTile((int)destroy.x, (int)destroy.y);
                     sendToAll(destroy);
 
                     final boolean isLevelCleared = level.isClear();
