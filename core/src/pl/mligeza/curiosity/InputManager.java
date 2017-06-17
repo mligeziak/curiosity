@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import pl.mligeza.curiosity.server.ClientService;
 
@@ -28,8 +29,16 @@ public class InputManager extends InputAdapter {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         Vector3 clickPos = camera.unproject(new Vector3(screenX, screenY, 0));
-        clientService.destroyTile((int)clickPos.x/32, (int)clickPos.y/32);
-        System.out.println(clientService.level.toString());
+
+        Rectangle startButtonRange = new Rectangle(ClientService.startScreenPos.x - 87, ClientService.startScreenPos.y - 100, 175, 55);
+        if (startButtonRange.contains(clickPos.x, clickPos.y)) {
+            clientService.cameraPos = ClientService.mainGamePos;
+        }
+        else {
+            clientService.destroyTile((int)clickPos.x/32, (int)clickPos.y/32);
+            System.out.println(clientService.level.toString());
+        }
+
         return true;
     }
 

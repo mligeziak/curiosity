@@ -17,11 +17,12 @@ public class ClientService extends Thread {
     public Level level;
     public Vector3 cameraPos;
     public static final Vector3 mainGamePos = new Vector3(192, 216, 0);
+    public static final Vector3 startScreenPos = new Vector3(2000, 2000, 0);
 
     @Override
     public void run() {
         Tile.initTiles();
-        cameraPos = mainGamePos;
+        cameraPos = startScreenPos;
 
         level = null;
         try {
