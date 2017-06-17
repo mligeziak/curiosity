@@ -11,7 +11,8 @@ public class InterfaceRenderer {
     private BitmapFont normalFont;
     private ClientService clientService;
     private Texture logo;
-    public Texture starButton;
+    private Texture starButton;
+    private Texture endImage;
 
     public InterfaceRenderer(ClientService clientService) {
         this.clientService = clientService;
@@ -19,6 +20,7 @@ public class InterfaceRenderer {
         topBarBackground = new Texture("topbar.png");
         logo = new Texture("logo.png");
         starButton = new Texture("start-button.png");
+        endImage = new Texture("pepe.png");
 
         normalFont = new BitmapFont();
         normalFont.setColor(Color.WHITE);
@@ -33,8 +35,12 @@ public class InterfaceRenderer {
 
         //Main game
         spriteBatch.draw(topBarBackground, 0, 384);
-        if(clientService.level != null) {
+        if (clientService.level != null) {
             normalFont.draw(spriteBatch, "Tiles left: " + clientService.level.tilesLeft, 20, 413);
+            normalFont.draw(spriteBatch, "Layers left: " + clientService.level.currentLayer, 285, 413);
+            if (clientService.level.currentLayer <= 1) {
+                spriteBatch.draw(endImage, 0, 0);
+            }
         }
 
         //Start screen

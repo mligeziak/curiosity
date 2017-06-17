@@ -19,7 +19,7 @@ public class CuriosityServer {
     private static int nextPlayerNumber;
     private static Level level;
     private static int currentLayer;
-    private static final int LEVEL_W = 12; // NOTE(hubert): max 16x16
+    private static final int LEVEL_W = 12; // NOTE(hubert): max 12x12
     private static final int LEVEL_H = 12;
 
     public static void main(String[] args) throws IOException {
@@ -27,7 +27,7 @@ public class CuriosityServer {
 
         players = new ArrayList<>();
         server = new Server();
-        currentLayer = 3;
+        currentLayer = 1;
         nextPlayerNumber = 1;
 
         level = new Level(LEVEL_W, LEVEL_H, currentLayer);
