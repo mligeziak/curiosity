@@ -36,6 +36,10 @@ public class Curiosity extends ApplicationAdapter {
 
     private void update(float dt) {
         levelRenderer.updateLevel(clientService.level);
+
+        camera.position.x = clientService.cameraPos.x;
+        camera.position.y = clientService.cameraPos.y;
+        camera.update();
     }
 
     @Override

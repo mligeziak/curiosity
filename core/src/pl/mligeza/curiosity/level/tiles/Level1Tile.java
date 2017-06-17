@@ -14,7 +14,9 @@ public class Level1Tile extends Tile {
         super(id, maxDurability, isDestructable);
 
         this.tilesSet = new int[maxDurability];
-        this.tilesSet[0] = Assets.LEVEL_1_TEX_0_ID;
+
+        this.tilesSet[0] = Assets.LEVEL_1_TEX_1_ID;
+        this.tilesSet[1] = Assets.LEVEL_1_TEX_0_ID;
 
         this.texId = tilesSet[this.maxDurability - 1];
     }

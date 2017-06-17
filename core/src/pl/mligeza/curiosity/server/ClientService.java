@@ -1,6 +1,7 @@
 package pl.mligeza.curiosity.server;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
@@ -14,10 +15,12 @@ import java.util.Arrays;
 public class ClientService extends Thread {
     private Client client;
     public Level level;
+    public Vector3 cameraPos;
 
     @Override
     public void run() {
         Tile.initTiles();
+        cameraPos = new Vector3(256, 256 ,0);
 
         level = null;
         try {
@@ -33,9 +36,9 @@ public class ClientService extends Thread {
 
             kryo.register(EmptyTile.class);
             kryo.register(Level1Tile.class);
+            kryo.register(Level1Tile.class);
             kryo.register(Level2Tile.class);
             kryo.register(Level3Tile.class);
-            kryo.register(Level4Tile.class);
 
             client.start();
             client.connect(5000, "localhost", 54555, 54777);
