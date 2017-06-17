@@ -43,7 +43,7 @@ public class InterfaceRenderer {
             }
         }
         if (clientService.thisPlayerId != 0) {
-            normalFont.draw(spriteBatch, "Player" + clientService.thisPlayerId, 100, 413);
+            normalFont.draw(spriteBatch, "Player" + clientService.thisPlayerId, 170, 413);
             if (clientService.playerWon != 0) {
                 if(clientService.thisPlayerId == clientService.playerWon) {
                     normalFont.draw(spriteBatch, "You won!!!", 200, 300);
