@@ -3,13 +3,17 @@ package pl.mligeza.curiosity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector3;
 import pl.mligeza.curiosity.server.ClientService;
 
 public class InputManager extends InputAdapter {
     private ClientService clientService;
+    private OrthographicCamera camera;
 
-    public InputManager(ClientService clientService) {
+    public InputManager(ClientService clientService, OrthographicCamera camera) {
         this.clientService = clientService;
+        this.camera = camera;
     }
 
     @Override
@@ -23,7 +27,8 @@ public class InputManager extends InputAdapter {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        clientService.destroyTile(screenX/32, screenY/32);
+        Vector3 clickPos = camera.unproject(new Vector3(screenX, screenY, 0));
+        clientService.destroyTile((int)clickPos.x/32, (int)clickPos.y/32);
         System.out.println(clientService.level.toString());
         return true;
     }

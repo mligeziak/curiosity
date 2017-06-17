@@ -9,7 +9,7 @@ public class Level {
     public int currentLayer;
 
     public boolean isEnded = false;
-    private int tilesLeft;
+    public int tilesLeft;
 
     public Level(int width, int height, int currentLayer) {
         this.width = width;
