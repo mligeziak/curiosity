@@ -9,8 +9,6 @@ import pl.mligeza.curiosity.level.tiles.Tile;
 import pl.mligeza.curiosity.server.ClientService;
 
 public class Curiosity extends ApplicationAdapter {
-    public static final String TAG = "[Curiosity]";
-
     private OrthographicCamera camera;
     private SpriteBatch spriteBatch;
 

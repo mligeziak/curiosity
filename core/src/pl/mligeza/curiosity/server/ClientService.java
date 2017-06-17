@@ -6,12 +6,10 @@ import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import pl.mligeza.curiosity.level.Level;
-import pl.mligeza.curiosity.level.tiles.DefaultTile;
-import pl.mligeza.curiosity.level.tiles.EmptyTile;
-import pl.mligeza.curiosity.level.tiles.GroundTile;
-import pl.mligeza.curiosity.level.tiles.Tile;
+import pl.mligeza.curiosity.level.tiles.*;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class ClientService extends Thread {
     private Client client;
@@ -33,9 +31,11 @@ public class ClientService extends Thread {
             kryo.register(int[].class);
             kryo.register(Tile[].class);
 
-            kryo.register(DefaultTile.class);
             kryo.register(EmptyTile.class);
-            kryo.register(GroundTile.class);
+            kryo.register(Level1Tile.class);
+            kryo.register(Level2Tile.class);
+            kryo.register(Level3Tile.class);
+            kryo.register(Level4Tile.class);
 
             client.start();
             client.connect(5000, "localhost", 54555, 54777);
@@ -52,6 +52,7 @@ public class ClientService extends Thread {
             public void received(Connection connection, Object object) {
                 if (object instanceof Level) {
                     level = (Level)object;
+                    System.out.println("CLIENT LEVEL: " + Arrays.toString(level.getTiles()));
                 } else if (object instanceof Vector2) {
                     Vector2 destroy = (Vector2)object;
                     level.hitTile((int)destroy.x, (int)destroy.y);

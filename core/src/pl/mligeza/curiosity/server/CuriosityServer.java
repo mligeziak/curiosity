@@ -6,13 +6,11 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import pl.mligeza.curiosity.level.Level;
-import pl.mligeza.curiosity.level.tiles.DefaultTile;
-import pl.mligeza.curiosity.level.tiles.EmptyTile;
-import pl.mligeza.curiosity.level.tiles.GroundTile;
-import pl.mligeza.curiosity.level.tiles.Tile;
+import pl.mligeza.curiosity.level.tiles.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CuriosityServer {
@@ -20,8 +18,8 @@ public class CuriosityServer {
     private static Server server;
     private static int nextPlayerNumber;
     private static Level level;
-    private static int levelsRemain;
-    private static final int LEVEL_W = 8;
+    private static int currentLayer;
+    private static final int LEVEL_W = 8; // NOTE(hubert): max 16x16
     private static final int LEVEL_H = 8;
 
     public static void main(String[] args) throws IOException {
@@ -29,9 +27,10 @@ public class CuriosityServer {
 
         players = new ArrayList<>();
         server = new Server();
+        currentLayer = 4;
         nextPlayerNumber = 1;
-        level = new Level(LEVEL_W, LEVEL_H);
-        levelsRemain = 2;
+
+        level = new Level(LEVEL_W, LEVEL_H, currentLayer);
 
         Kryo kryo = server.getKryo();
         kryo.register(Player.class);
@@ -41,9 +40,11 @@ public class CuriosityServer {
         kryo.register(int[].class);
         kryo.register(Tile[].class);
 
-        kryo.register(DefaultTile.class);
         kryo.register(EmptyTile.class);
-        kryo.register(GroundTile.class);
+        kryo.register(Level1Tile.class);
+        kryo.register(Level2Tile.class);
+        kryo.register(Level3Tile.class);
+        kryo.register(Level4Tile.class);
 
         server.start();
         server.bind(54555, 54777);
@@ -59,26 +60,31 @@ public class CuriosityServer {
                 } else if (object instanceof Request) {
                     Request request = (Request)object;
                     if (request.request.equals("GET_LEVEL")) {
+                        System.out.println("SENDING LEVEL: " + Arrays.toString(level.getTiles()));
                         connection.sendTCP(level);
                     }
                 } else if (object instanceof Vector2) {
                     Vector2 destroy = (Vector2)object;
+                    System.out.println("Mouse pos: " + destroy);
                     level.hitTile((int)destroy.x, (int)destroy.y);
+                    System.out.println("SERVER LEVEL: " + Arrays.toString(level.getTiles()));
+
                     sendToAll(destroy);
+
                     final boolean isLevelCleared = level.isClear();
-                    System.out.println("isLevelCleated = " + isLevelCleared);
+                    System.out.println("isLevelCleared = " + isLevelCleared);
                     if (isLevelCleared) {
                         System.out.println("Level wyczyszczony");
-                        levelsRemain--;
-                        if (levelsRemain == 0) {
+                        level.currentLayer--;
+                        if (level.currentLayer == 0) {
                             Player player = findPlayerByConnection(connection);
                             System.out.println("Wygrał gracz" + player.number);
+                            level.isEnded = true;
                         } else {
-                            level = new Level(LEVEL_W, LEVEL_H);
+                            level.generateLevel();
                             sendToAll(level);
                         }
                     }
-//                    System.out.println("Zniszczono tile: " + (int)destroy.x + ", " + (int)destroy.y);
                 }
             }
         });
