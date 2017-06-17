@@ -19,15 +19,15 @@ public class CuriosityServer {
     private static int nextPlayerNumber;
     private static Level level;
     private static int currentLayer;
-    private static final int LEVEL_W = 8; // NOTE(hubert): max 16x16
-    private static final int LEVEL_H = 8;
+    private static final int LEVEL_W = 12; // NOTE(hubert): max 16x16
+    private static final int LEVEL_H = 12;
 
     public static void main(String[] args) throws IOException {
         Tile.initTiles();
 
         players = new ArrayList<>();
         server = new Server();
-        currentLayer = 4;
+        currentLayer = 3;
         nextPlayerNumber = 1;
 
         level = new Level(LEVEL_W, LEVEL_H, currentLayer);
@@ -42,9 +42,9 @@ public class CuriosityServer {
 
         kryo.register(EmptyTile.class);
         kryo.register(Level1Tile.class);
+        kryo.register(Level1Tile.class);
         kryo.register(Level2Tile.class);
         kryo.register(Level3Tile.class);
-        kryo.register(Level4Tile.class);
 
         server.start();
         server.bind(54555, 54777);

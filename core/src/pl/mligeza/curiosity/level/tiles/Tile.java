@@ -45,10 +45,9 @@ public abstract class Tile {
 
     public static void initTiles() {
         emptyTile = new EmptyTile(0, 1, false);
-        level1Tile = new Level1Tile(1, 1, true);
-        level2Tile = new Level2Tile(1, 2, true);
-        level3Tile = new Level3Tile(1, 3, true);
-        level4Tile = new Level4Tile(1, 4, true);
+        level1Tile = new Level1Tile(1, 2, true);
+        level2Tile = new Level2Tile(1, 3, true);
+        level3Tile = new Level3Tile(1, 4, true);
     }
 
     public void hit() {

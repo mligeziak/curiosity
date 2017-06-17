@@ -26,17 +26,14 @@ public class Level {
 
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                if (currentLayer == 4) {
+                if (currentLayer == 3) {
                     setTile(x, y, new Level1Tile(Tile.level1Tile));
                 }
-                if (currentLayer == 3) {
+                if (currentLayer == 2) {
                     setTile(x, y, new Level2Tile(Tile.level2Tile));
                 }
-                if (currentLayer == 2) {
-                    setTile(x, y, new Level3Tile(Tile.level3Tile));
-                }
                 if (currentLayer == 1) {
-                    setTile(x, y, new Level4Tile(Tile.level4Tile));
+                    setTile(x, y, new Level3Tile(Tile.level3Tile));
                 }
                 if (currentLayer == 0) {
                     setTile(x, y, new EmptyTile(Tile.emptyTile));
