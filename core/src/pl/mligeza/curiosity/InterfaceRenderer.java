@@ -42,6 +42,16 @@ public class InterfaceRenderer {
                 spriteBatch.draw(endImage, 0, 0);
             }
         }
+        if (clientService.thisPlayerId != 0) {
+            normalFont.draw(spriteBatch, "Player" + clientService.thisPlayerId, 100, 413);
+            if (clientService.playerWon != 0) {
+                if(clientService.thisPlayerId == clientService.playerWon) {
+                    normalFont.draw(spriteBatch, "You won!!!", 200, 300);
+                } else {
+                    normalFont.draw(spriteBatch, "Player" + clientService.playerWon + " won!!!", 200, 300);
+                }
+            }
+        }
 
         //Start screen
         spriteBatch.draw(logo, ClientService.startScreenPos.x - 176, ClientService.startScreenPos.y);
