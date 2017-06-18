@@ -19,7 +19,7 @@ public class CuriosityServer {
     private static int nextPlayerNumber;
     private static Level level;
     private static int currentLayer;
-    private static final int LEVEL_W = 12; // NOTE(hubert): max 16x16
+    private static final int LEVEL_W = 12; // NOTE(hubert): max 12x12
     private static final int LEVEL_H = 12;
 
     public static void main(String[] args) throws IOException {
@@ -35,6 +35,7 @@ public class CuriosityServer {
         Kryo kryo = server.getKryo();
         kryo.register(Player.class);
         kryo.register(Request.class);
+        kryo.register(Response.class);
         kryo.register(Level.class);
         kryo.register(Vector2.class);
         kryo.register(int[].class);
@@ -57,6 +58,7 @@ public class CuriosityServer {
                     player.number = nextPlayerNumber;
                     nextPlayerNumber++;
                     players.add(player);
+                    connection.sendTCP(new Response("PLAYER_ID", player.number));
                 } else if (object instanceof Request) {
                     Request request = (Request)object;
                     if (request.request.equals("GET_LEVEL")) {
@@ -78,7 +80,8 @@ public class CuriosityServer {
                         level.currentLayer--;
                         if (level.currentLayer == 0) {
                             Player player = findPlayerByConnection(connection);
-                            System.out.println("Wygrał gracz" + player.number);
+                            System.out.println("Player" + player.number + " won");
+                            sendToAll(new Response("PLAYER_WON", player.number));
                             level.isEnded = true;
                         } else {
                             level.generateLevel();

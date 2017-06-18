@@ -13,6 +13,7 @@ public class Curiosity extends ApplicationAdapter {
     private SpriteBatch spriteBatch;
 
     private LevelRenderer levelRenderer;
+    private InterfaceRenderer interfaceRenderer;
     private ClientService clientService;
 
     @Override
@@ -26,16 +27,18 @@ public class Curiosity extends ApplicationAdapter {
         clientService.start();
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(true, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.update();
 
         levelRenderer = new LevelRenderer(clientService.level, camera);
+        interfaceRenderer = new InterfaceRenderer(clientService);
 
-        Gdx.input.setInputProcessor(new InputManager(clientService));
+        Gdx.input.setInputProcessor(new InputManager(clientService, camera));
     }
 
     private void update(float dt) {
         levelRenderer.updateLevel(clientService.level);
+        interfaceRenderer.update(dt);
 
         camera.position.x = clientService.cameraPos.x;
         camera.position.y = clientService.cameraPos.y;
@@ -49,6 +52,7 @@ public class Curiosity extends ApplicationAdapter {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        interfaceRenderer.render(spriteBatch);
         levelRenderer.render(spriteBatch);
     }
 

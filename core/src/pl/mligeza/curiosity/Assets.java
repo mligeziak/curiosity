@@ -1,7 +1,6 @@
 package pl.mligeza.curiosity;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +20,7 @@ public class Assets {
     public static final int LEVEL_3_TEX_2_ID = 8;
     public static final int LEVEL_3_TEX_3_ID = 9;
 
-    private static Map<Integer, TextureRegion> textures = new HashMap<>();
+    private static Map<Integer, Texture> textures = new HashMap<>();
 
     public static void initTextures() {
         final Texture emptyTex = new Texture("tiles/empty-tile.png");
@@ -38,29 +37,22 @@ public class Assets {
         final Texture level3Tex2 = new Texture("tiles/level-3/tile-2.png");
         final Texture level3Tex3 = new Texture("tiles/level-3/tile-3.png");
 
-        textures.put(EMPTY_TEX_ID, generateFlippedTextureRegion(emptyTex));
+        textures.put(EMPTY_TEX_ID, emptyTex);
 
-        textures.put(LEVEL_1_TEX_0_ID, generateFlippedTextureRegion(level1Tex0));
-        textures.put(LEVEL_1_TEX_1_ID, generateFlippedTextureRegion(level1Tex1));
+        textures.put(LEVEL_1_TEX_0_ID, level1Tex0);
+        textures.put(LEVEL_1_TEX_1_ID, level1Tex1);
 
-        textures.put(LEVEL_2_TEX_0_ID, generateFlippedTextureRegion(level2Tex0));
-        textures.put(LEVEL_2_TEX_1_ID, generateFlippedTextureRegion(level2Tex1));
-        textures.put(LEVEL_2_TEX_2_ID, generateFlippedTextureRegion(level2Tex2));
+        textures.put(LEVEL_2_TEX_0_ID, level2Tex0);
+        textures.put(LEVEL_2_TEX_1_ID, level2Tex1);
+        textures.put(LEVEL_2_TEX_2_ID, level2Tex2);
 
-        textures.put(LEVEL_3_TEX_0_ID, generateFlippedTextureRegion(level3Tex0));
-        textures.put(LEVEL_3_TEX_1_ID, generateFlippedTextureRegion(level3Tex1));
-        textures.put(LEVEL_3_TEX_2_ID, generateFlippedTextureRegion(level3Tex2));
-        textures.put(LEVEL_3_TEX_3_ID, generateFlippedTextureRegion(level3Tex3));
+        textures.put(LEVEL_3_TEX_0_ID, level3Tex0);
+        textures.put(LEVEL_3_TEX_1_ID, level3Tex1);
+        textures.put(LEVEL_3_TEX_2_ID, level3Tex2);
+        textures.put(LEVEL_3_TEX_3_ID, level3Tex3);
     }
 
-    private static TextureRegion generateFlippedTextureRegion(Texture texture) {
-        TextureRegion result = new TextureRegion(texture);
-        result.flip(false, true);
-
-        return result;
-    }
-
-    public static TextureRegion getTexture(int textureId) {
+    public static Texture getTexture(int textureId) {
         return textures.get(textureId);
     }
 }

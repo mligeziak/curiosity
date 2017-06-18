@@ -9,6 +9,7 @@ import com.esotericsoftware.kryonet.Listener;
 import pl.mligeza.curiosity.level.Level;
 import pl.mligeza.curiosity.level.tiles.*;
 
+import javax.print.attribute.standard.PrinterLocation;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -16,11 +17,17 @@ public class ClientService extends Thread {
     private Client client;
     public Level level;
     public Vector3 cameraPos;
+    public int thisPlayerId;
+    public int playerWon;
+    public static final Vector3 mainGamePos = new Vector3(192, 216, 0);
+    public static final Vector3 startScreenPos = new Vector3(2000, 2000, 0);
 
     @Override
     public void run() {
         Tile.initTiles();
-        cameraPos = new Vector3(256, 256 ,0);
+        cameraPos = startScreenPos;
+        thisPlayerId = 0;
+        playerWon = 0;
 
         level = null;
         try {
@@ -29,6 +36,7 @@ public class ClientService extends Thread {
             Kryo kryo = client.getKryo();
             kryo.register(Player.class);
             kryo.register(Request.class);
+            kryo.register(Response.class);
             kryo.register(Level.class);
             kryo.register(Vector2.class);
             kryo.register(int[].class);
@@ -59,6 +67,13 @@ public class ClientService extends Thread {
                 } else if (object instanceof Vector2) {
                     Vector2 destroy = (Vector2)object;
                     level.hitTile((int)destroy.x, (int)destroy.y);
+                } else if (object instanceof Response) {
+                    Response response = (Response) object;
+                    if (response.response.equals("PLAYER_ID")) {
+                        thisPlayerId = response.integer;
+                    } else if (response.response.equals("PLAYER_WON")) {
+                        playerWon = response.integer;
+                    }
                 }
             }
         });
